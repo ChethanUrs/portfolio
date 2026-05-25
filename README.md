@@ -28,7 +28,7 @@ This repository contains a stunning, one-of-a-kind, handcrafted portfolio websit
 
 1.  **Physics-Based Leaf Cursor**: A custom leaf (`🍃`) trailing behind the pointer on a full-screen canvas with spring forces, inertia, and a trail of gold and green sparkles.
 2.  **watercolor Gradient Mesh**: Soft, blending watercolor blobs on the hero section background that shift and react dynamically to mouse movement using spring-damped interpolation.
-3.  **Mechanical Typewriter Tagline**: Types out `"Crafting digital stories from the heart of Mysuru."` on load with organic variable pauses mimicking a physical typewriter.
+3.  **Mechanical Typewriter Tagline**: Types out `"Designing thoughtful web applications and interactive experiences."` on load with organic variable pauses mimicking a physical typewriter.
 4.  **Tilted Project Cards**: Scrapbook-style cards that lift, tilt by `±1.8°`, and expand their shadows when hovered.
 5.  **Collector's Stamp Passport**: An achievements grid displaying vintage scalloped postage stamps that rotate dynamically. Hovering over a stamp triggers a wax-seal "crack" animation and expands a detailed description drawer.
 6.  **Smudging Postcard Socials**: Interactive round social ink-stamps on a vintage letter postcard that depress and wobble as if stamping physical ink onto paper.
