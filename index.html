@@ -699,16 +699,25 @@
       gap: 3rem;
     }
     
-    /* Timeline connecting ink thread */
-    .education-timeline::before {
-      content: "";
+    .timeline-ink-path {
       position: absolute;
       top: 15px;
       left: 20px;
-      width: 2px;
+      width: 3px;
       height: calc(100% - 30px);
-      background: var(--ink);
-      opacity: 0.15;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .timeline-ink-path path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.3;
+    }
+    
+    .education-ledger.active .timeline-ink-path path {
+      stroke-dashoffset: 0;
     }
     
     .education-item {
@@ -766,16 +775,36 @@
     }
     
     .education-date {
+      position: relative;
       display: inline-block;
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 0.95rem;
       color: var(--terracotta);
-      border: 1px dashed var(--terracotta);
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
+      padding: 0.25rem 0.75rem;
       margin-bottom: 0.5rem;
-      background: rgba(201, 101, 71, 0.05);
+      z-index: 1;
+    }
+    
+    .date-scribble-circle {
+      position: absolute;
+      top: -3px;
+      left: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 6px);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .date-scribble-circle path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.8;
+    }
+    
+    .education-item:hover .date-scribble-circle path {
+      stroke-dashoffset: 0;
     }
     
     .education-degree {
@@ -1800,7 +1829,7 @@
         <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">Academic Journey</h2>
       </div>
 
-      <div class="education-ledger reveal-on-scroll">
+      <div class="education-ledger page-turn-reveal">
         <!-- 10 beautiful silver spiral rings -->
         <div class="spiral-rings" aria-hidden="true">
           <div class="spiral-ring"></div>
@@ -1816,6 +1845,11 @@
         </div>
 
         <div class="education-timeline">
+          <!-- Self-drawing hand-drawn vertical timeline connector ink thread -->
+          <svg class="timeline-ink-path" viewBox="0 0 10 300" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M5,0 Q8,50 3,100 T7,200 Q2,250 5,300" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+
           <!-- Timeline Item 1 -->
           <div class="education-item">
             <div class="education-marker" aria-hidden="true">
@@ -1826,7 +1860,12 @@
               </svg>
             </div>
             <div class="education-details">
-              <span class="education-date">2024 – 2029</span>
+              <span class="education-date">
+                2024 – 2029
+                <svg class="date-scribble-circle" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 5,20 C 5,5 115,5 115,20 C 115,35 10,38 8,25 C 7,15 90,8 112,18" stroke="var(--terracotta)" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3 class="education-degree">Integrated MCA 🎓</h3>
               <p class="education-institution">Amrita Vishwa Vidyapeetham, Mysuru Campus</p>
               <p class="education-desc">A comprehensive five-year integrated program focusing on advanced software architectures, modern full-stack development, database management systems, and algorithms.</p>
@@ -1842,7 +1881,12 @@
               </svg>
             </div>
             <div class="education-details">
-              <span class="education-date">2022 – 2024</span>
+              <span class="education-date">
+                2022 – 2024
+                <svg class="date-scribble-circle" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 5,20 C 5,5 115,5 115,20 C 115,35 10,38 8,25 C 7,15 90,8 112,18" stroke="var(--terracotta)" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3 class="education-degree">PU (PCMB) 🧪</h3>
               <p class="education-institution">Marimallappa PU College</p>
               <p class="education-desc">Pre-University education specializing in Physics, Chemistry, Mathematics, and Biology (PCMB) — cultivating logic, structured problem-solving, and scientific research methodologies.</p>
@@ -1858,7 +1902,12 @@
               </svg>
             </div>
             <div class="education-details">
-              <span class="education-date">2011 – 2022</span>
+              <span class="education-date">
+                2011 – 2022
+                <svg class="date-scribble-circle" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 5,20 C 5,5 115,5 115,20 C 115,35 10,38 8,25 C 7,15 90,8 112,18" stroke="var(--terracotta)" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3 class="education-degree">Schooling & High School 🏫</h3>
               <p class="education-institution">Shree Mahaveer Jain Vidyalaya</p>
               <p class="education-desc">Primary and secondary school years. Developed early foundations in logical sciences, teamwork, academic excellence, and a lifelong curiosity for technology.</p>
