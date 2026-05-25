@@ -631,6 +631,201 @@
     }
 
     /* -------------------------------------------------------------
+       8b. SECTION - EDUCATION (Academic Journey)
+       ------------------------------------------------------------- */
+    #education {
+      background: radial-gradient(circle, var(--parchment) 0%, #ede6d6 100%);
+      padding: 8rem 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 20px 40px rgba(0,0,0,0.05), inset 0 -20px 40px rgba(0,0,0,0.05);
+    }
+    
+    .education-title-box {
+      text-align: center;
+      margin-bottom: 4.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .education-ledger {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--parchment);
+      padding: 4rem 4rem 4rem 6rem;
+      position: relative;
+      transform: rotate(0.4deg);
+      box-shadow: 0 15px 35px rgba(44, 30, 21, 0.12);
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+    }
+    
+    /* Notebook binding spine line */
+    .education-ledger::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 55px;
+      width: 1px;
+      height: 100%;
+      background: rgba(44, 30, 21, 0.15);
+      border-left: 1px dashed rgba(44, 30, 21, 0.2);
+    }
+    
+    .spiral-rings {
+      position: absolute;
+      left: 18px;
+      top: 4%;
+      height: 92%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+    }
+    
+    .spiral-ring {
+      width: 28px;
+      height: 12px;
+      background: linear-gradient(to bottom, #e0e0e0 0%, #b8b8b8 45%, #888888 100%);
+      border: 1.5px solid var(--ink);
+      border-radius: 8px;
+      box-shadow: 1px 2px 4px rgba(44, 30, 21, 0.2);
+    }
+    
+    .education-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    
+    /* Timeline connecting ink thread */
+    .education-timeline::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      width: 2px;
+      height: calc(100% - 30px);
+      background: var(--ink);
+      opacity: 0.15;
+    }
+    
+    .education-item {
+      display: flex;
+      gap: 2rem;
+      position: relative;
+    }
+    
+    .education-marker {
+      width: 42px;
+      height: 42px;
+      background: var(--card-bg);
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 2;
+      box-shadow: 2px 3px 6px rgba(44, 30, 21, 0.1);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+    }
+    
+    .education-item:hover .education-marker {
+      transform: scale(1.15) rotate(8deg);
+      background-color: var(--sage);
+    }
+    
+    .education-item:nth-child(2):hover .education-marker {
+      background-color: var(--terracotta);
+    }
+    
+    .education-item:nth-child(3):hover .education-marker {
+      background-color: var(--gold);
+    }
+    
+    .education-marker svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--ink);
+      transition: fill 0.3s ease;
+    }
+    
+    .education-item:hover .education-marker svg {
+      fill: var(--parchment);
+    }
+    
+    .education-details {
+      flex-grow: 1;
+      transition: transform 0.3s ease;
+    }
+    
+    .education-item:hover .education-details {
+      transform: translateX(5px);
+    }
+    
+    .education-date {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--terracotta);
+      border: 1px dashed var(--terracotta);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+      background: rgba(201, 101, 71, 0.05);
+    }
+    
+    .education-degree {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0.2rem 0 0.4rem 0;
+    }
+    
+    .education-institution {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(44, 30, 21, 0.85);
+      margin-bottom: 0.5rem;
+    }
+    
+    .education-desc {
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: rgba(44, 30, 21, 0.75);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .education-ledger {
+        padding: 3rem 1.5rem 3rem 3.5rem;
+      }
+      .education-ledger::before {
+        left: 35px;
+      }
+      .spiral-rings {
+        left: 8px;
+      }
+      .spiral-ring {
+        width: 18px;
+        height: 8px;
+      }
+      .education-item {
+        gap: 1.2rem;
+      }
+      .education-degree {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* -------------------------------------------------------------
        9. SECTION 3 — PALETTE (Skills)
        ------------------------------------------------------------- */
     #palette {
@@ -1349,6 +1544,7 @@
     <div class="nav-tabs">
       <a href="#cover" class="tab active" data-sec="cover">Cover</a>
       <a href="#journal" class="tab" data-sec="journal">Journal</a>
+      <a href="#education" class="tab" data-sec="education">Education</a>
       <a href="#palette" class="tab" data-sec="palette">Palette</a>
       <a href="#entries" class="tab" data-sec="entries">Entries</a>
       <a href="#stamps" class="tab" data-sec="stamps">Stamps</a>
@@ -1586,11 +1782,98 @@
     </div>
   </section>
 
-  <!-- Inline SVG Ink divider brush stroke between Section 2 & Section 3 -->
+  <!-- Inline SVG Ink divider brush stroke between Section 2 & Education -->
   <div class="ink-divider">
     <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
-      <path d="M0,15 C 300,35 600,-5 900,30 C 1050,15 1150,25 1200,10 L 1200,40 L 0,40 Z" fill="#c5bba3" />
+      <path d="M0,15 C 300,35 600,-5 900,30 C 1050,15 1150,25 1200,10 L 1200,40 L 0,40 Z" fill="#ede6d6" />
       <path d="M0,15 C 300,35 600,-5 900,30 C 1050,15 1150,25 1200,10" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 2b — EDUCATION (Academic Journey)
+       ------------------------------------------------------------- -->
+  <section id="education">
+    <div class="container">
+      <div class="education-title-box reveal-on-scroll">
+        <span class="italic-title" style="font-size: 1.3rem;">Academic Archive</span>
+        <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">Academic Journey</h2>
+      </div>
+
+      <div class="education-ledger reveal-on-scroll">
+        <!-- 10 beautiful silver spiral rings -->
+        <div class="spiral-rings" aria-hidden="true">
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+        </div>
+
+        <div class="education-timeline">
+          <!-- Timeline Item 1 -->
+          <div class="education-item">
+            <div class="education-marker" aria-hidden="true">
+              <!-- SVG for Graduation Cap -->
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17z"/>
+              </svg>
+            </div>
+            <div class="education-details">
+              <span class="education-date">2024 – 2029</span>
+              <h3 class="education-degree">Integrated MCA 🎓</h3>
+              <p class="education-institution">Amrita Vishwa Vidyapeetham, Mysuru Campus</p>
+              <p class="education-desc">A comprehensive five-year integrated program focusing on advanced software architectures, modern full-stack development, database management systems, and algorithms.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="education-item">
+            <div class="education-marker" aria-hidden="true">
+              <!-- SVG for Open Book -->
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21.05c-1.11-.9-2.58-1.47-4.14-1.47-2.63 0-5.5 1.5-6.86 2.22-.38.2-.8-.08-.8-.5V4.62c0-.36.23-.69.57-.83C2.08 3.25 5.09 2 7.86 2c1.94 0 3.73.55 5.14 1.47 1.4-.92 3.19-1.47 5.14-1.47 2.77 0 5.78 1.25 7.09 1.79.34.14.57.47.57.83v16.73c0 .42-.42.7-.8.5-1.36-.72-4.23-2.22-6.86-2.22-1.56 0-3.03.57-4.14 1.47z"/>
+              </svg>
+            </div>
+            <div class="education-details">
+              <span class="education-date">2022 – 2024</span>
+              <h3 class="education-degree">PU (PCMB) 🧪</h3>
+              <p class="education-institution">Marimallappa PU College</p>
+              <p class="education-desc">Pre-University education specializing in Physics, Chemistry, Mathematics, and Biology (PCMB) — cultivating logic, structured problem-solving, and scientific research methodologies.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="education-item">
+            <div class="education-marker" aria-hidden="true">
+              <!-- SVG for School Building -->
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3L2 12h3v8h14v-8h3L12 3zm4 15H8v-6h8v6z"/>
+              </svg>
+            </div>
+            <div class="education-details">
+              <span class="education-date">2011 – 2022</span>
+              <h3 class="education-degree">Schooling & High School 🏫</h3>
+              <p class="education-institution">Shree Mahaveer Jain Vidyalaya</p>
+              <p class="education-desc">Primary and secondary school years. Developed early foundations in logical sciences, teamwork, academic excellence, and a lifelong curiosity for technology.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Education & Section 3 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,20 C 300,5 600,35 900,10 C 1050,25 1150,5 1200,15 L 1200,40 L 0,40 Z" fill="#c5bba3" />
+      <path d="M0,20 C 300,5 600,35 900,10 C 1050,25 1150,5 1200,15" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
     </svg>
   </div>
 
