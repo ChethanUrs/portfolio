@@ -142,6 +142,53 @@
       background: radial-gradient(circle, var(--parchment) 0%, #05080e 100%);
     }
 
+    /* ---------------------------------------------------------------
+       DARK MODE TEXT OVERRIDES — Ensure full readability on dark bg
+    --------------------------------------------------------------- */
+    body.cosmic-dark-mode .hero-bio,
+    body.cosmic-dark-mode .letter-body,
+    body.cosmic-dark-mode .letter-salutation,
+    body.cosmic-dark-mode .letter-signoff,
+    body.cosmic-dark-mode .education-institution,
+    body.cosmic-dark-mode .education-desc,
+    body.cosmic-dark-mode .education-degree,
+    body.cosmic-dark-mode .card-intro,
+    body.cosmic-dark-mode .project-desc,
+    body.cosmic-dark-mode .project-title,
+    body.cosmic-dark-mode .stamp-title,
+    body.cosmic-dark-mode .stamp-issuer,
+    body.cosmic-dark-mode .stamp-desc-fold,
+    body.cosmic-dark-mode .postcard-left,
+    body.cosmic-dark-mode .postcard-left p,
+    body.cosmic-dark-mode .address-line,
+    body.cosmic-dark-mode .tab,
+    body.cosmic-dark-mode h1,
+    body.cosmic-dark-mode h2,
+    body.cosmic-dark-mode h3,
+    body.cosmic-dark-mode h4 {
+      color: var(--ink) !important;
+    }
+
+    body.cosmic-dark-mode .stamp-card:hover {
+      background-color: rgba(15, 23, 42, 0.92) !important;
+    }
+
+    body.cosmic-dark-mode .bookmark-btn {
+      color: var(--ink) !important;
+    }
+
+    body.cosmic-dark-mode .stamp-container:hover .stamp-desc-fold {
+      border-top-color: rgba(0, 242, 254, 0.25);
+    }
+
+    body.cosmic-dark-mode .postcard-container::after {
+      background: rgba(0, 242, 254, 0.15);
+    }
+
+    body.cosmic-dark-mode .address-line {
+      border-bottom-color: rgba(0, 242, 254, 0.25);
+    }
+
 
 
 
@@ -467,7 +514,7 @@
       font-size: 1.1rem;
       max-width: 600px;
       margin-bottom: 3rem;
-      color: rgba(44, 30, 21, 0.9);
+      color: var(--ink);
       position: relative;
     }
 
@@ -953,7 +1000,7 @@
       font-weight: 700;
       font-style: italic;
       font-size: 1.05rem;
-      color: rgba(44, 30, 21, 0.85);
+      color: var(--ink);
       margin-bottom: 0.5rem;
     }
     
@@ -961,7 +1008,7 @@
       font-family: var(--font-body);
       font-size: 0.98rem;
       line-height: 1.6;
-      color: rgba(44, 30, 21, 0.75);
+      color: var(--ink);
       margin: 0;
     }
 
@@ -1105,7 +1152,7 @@
       font-size: 0.95rem;
       text-align: center;
       margin-bottom: 2rem;
-      color: rgba(44, 30, 21, 0.8);
+      color: var(--ink);
       font-style: italic;
     }
 
@@ -1225,7 +1272,7 @@
 
     .project-desc {
       font-size: 0.95rem;
-      color: rgba(44, 30, 21, 0.85);
+      color: var(--ink);
       margin-bottom: 2rem;
       flex-grow: 1;
     }
@@ -1482,7 +1529,7 @@
       box-shadow: 0 10px 25px rgba(201, 101, 71, 0.25);
       border-style: solid;
       border-color: var(--terracotta);
-      background-color: #fbf8f3;
+      background-color: var(--parchment);
     }
 
     /* Badge Types */
@@ -1523,7 +1570,7 @@
 
     .stamp-issuer {
       font-size: 0.75rem;
-      color: rgba(44, 30, 21, 0.7);
+      color: var(--ink);
       margin-bottom: 1rem;
       font-style: italic;
     }
@@ -1640,7 +1687,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: rgba(44, 30, 21, 0.95);
+      color: var(--ink);
     }
 
     .postcard-left p {
