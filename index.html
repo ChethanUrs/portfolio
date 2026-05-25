@@ -20,21 +20,130 @@
        1. DESIGN SYSTEM & TOKENS
        ------------------------------------------------------------- */
     :root {
-      --parchment: #f1f6f9;       /* clean ice-blue mist background */
-      --card-bg: #e2edf3;          /* soft ocean mist scrap card */
-      --ink: #0b1a29;              /* deep midnight navy ink */
-      --terracotta: #0d9488;       /* rich electric teal accent */
-      --sage: #0284c7;             /* vibrant sky blue Nature accent */
-      --ochre: #2563eb;            /* deep sapphire blue */
-      --mauve: #3b82f6;            /* vivid electric blue */
-      --gold: #f59e0b;             /* vibrant solar amber gold */
-      --sky-blue: #06b6d4;         /* glowing cyan */
-      --saffron: #f43f5e;          /* sunset crimson rose */
-      --royal-purple: #1e3a8a;     /* deep cosmic royal blue */
+      --parchment: #fcfaf2;       /* Warm, high-texture cream parchment */
+      --card-bg: #f5eedc;          /* Soft aged ledger scrap card background */
+      --ink: #2c1e15;              /* Rich dark walnut brown ink */
+      --terracotta: #0d9488;       /* Vibrant electric teal */
+      --sage: #0284c7;             /* Calm sky blue */
+      --ochre: #1e40af;            /* Deep sapphire blue */
+      --mauve: #8b5cf6;            /* Amethyst purple */
+      --gold: #f59e0b;             /* Solar amber gold */
+      --sky-blue: #06b6d4;         /* Glowing cyan */
+      --saffron: #f43f5e;          /* Sunset crimson rose */
+      --royal-purple: #312e81;     /* Deep twilight blue */
+      --card-border: rgba(44, 30, 21, 0.12); /* Organic paper boundary */
+      --glow-color: rgba(13, 148, 136, 0.15); /* Soft overlay glow */
       
       --font-display: 'Fraunces', serif;
       --font-body: 'Lora', serif;
     }
+
+    /* -------------------------------------------------------------
+       COSMIC DARK MODE OVERRIDES (Luminous Neon Nebula theme)
+       ------------------------------------------------------------- */
+    body.cosmic-dark-mode {
+      --parchment: #070c14;        /* Space-void obsidian black */
+      --card-bg: rgba(15, 23, 42, 0.72); /* Glassmorphic translucent slate panels */
+      --ink: #f8fafc;              /* Brilliant starlight silver-white */
+      --terracotta: #00f2fe;       /* Hyper-charged neon cyan */
+      --sage: #38bdf8;             /* Glowing cosmic sky blue */
+      --ochre: #60a5fa;            /* Vibrant glowing sapphire */
+      --mauve: #c084fc;            /* Luminous electric lavender */
+      --gold: #ffd166;             /* Luminous cosmic solar gold */
+      --sky-blue: #22d3ee;         /* Glowing neon cyan */
+      --saffron: #ff2a5f;          /* Super-charged glowing rose crimson */
+      --royal-purple: #818cf8;     /* Glowing indigo stardust */
+      --card-border: rgba(0, 242, 254, 0.28); /* Luminous cyan border */
+      --glow-color: rgba(0, 242, 254, 0.45);  /* Luminous glow shadow */
+    }
+
+    /* Smooth global transitions for the theme swap */
+    body, section, p, h1, h2, h3, h4, span, div, a, button, svg, input, textarea,
+    .corkboard-card, .project-card, .education-ledger, .nav-spine, .tab, 
+    .journal-letter-container, .postcard-container, .postage-stamp-wrapper,
+    .education-marker, .stamp-card, .preloader-status {
+      transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  background 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  color 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  border-color 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    body.cosmic-dark-mode::after {
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+      opacity: 0.85;
+    }
+
+    body.cosmic-dark-mode #watercolor-mesh {
+      opacity: 0.42;
+      filter: blur(120px);
+    }
+
+    body.cosmic-dark-mode .journal-letter-container {
+      background: #0f172a;
+      border-color: var(--ink);
+      box-shadow: 0 15px 35px rgba(0, 242, 254, 0.08);
+    }
+
+    body.cosmic-dark-mode .education-ledger {
+      background: #0d1527;
+      border-color: var(--ink);
+      box-shadow: 0 15px 35px rgba(0, 242, 254, 0.06);
+    }
+
+    body.cosmic-dark-mode .postcard-container {
+      background: #0f172a;
+      border-color: var(--ink);
+      box-shadow: 0 15px 35px rgba(0, 242, 254, 0.08);
+    }
+
+    body.cosmic-dark-mode .postage-stamp-wrapper svg {
+      filter: drop-shadow(0 0 8px var(--glow-color));
+    }
+
+    body.cosmic-dark-mode .corkboard-card,
+    body.cosmic-dark-mode .project-card,
+    body.cosmic-dark-mode .stamp-card {
+      background: var(--card-bg);
+      border-color: var(--card-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    body.cosmic-dark-mode .corkboard-card:hover,
+    body.cosmic-dark-mode .project-card:hover,
+    body.cosmic-dark-mode .stamp-card:hover {
+      box-shadow: 0 0 25px var(--glow-color);
+      border-color: var(--terracotta);
+    }
+
+    body.cosmic-dark-mode .paper-label {
+      background: rgba(15, 23, 42, 0.85) !important;
+      color: var(--ink) !important;
+      border-color: var(--card-border) !important;
+    }
+
+    body.cosmic-dark-mode .project-illustration-panel {
+      border-bottom-color: var(--card-border);
+    }
+
+    body.cosmic-dark-mode #education {
+      background: radial-gradient(circle, var(--parchment) 0%, #090e18 100%);
+    }
+
+    body.cosmic-dark-mode #stamps {
+      background: radial-gradient(circle, #170d28 0%, #05020c 100%);
+    }
+
+    body.cosmic-dark-mode #letter {
+      background: radial-gradient(circle, var(--parchment) 0%, #05080e 100%);
+    }
+
+
+
 
     * {
       box-sizing: border-box;
@@ -1672,29 +1781,21 @@
     /* -------------------------------------------------------------
        14. PRELOADER OVERLAY
        ------------------------------------------------------------- */
+    /* -------------------------------------------------------------
+       14. ORGANIC WATERCOLOR BLOOM PRELOADER
+       ------------------------------------------------------------- */
     #preloader {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 15% 15%, rgba(13, 148, 136, 0.16) 0%, transparent 45%),
-                  radial-gradient(circle at 85% 35%, rgba(2, 132, 199, 0.16) 0%, transparent 45%),
-                  radial-gradient(circle at 35% 75%, rgba(245, 158, 11, 0.14) 0%, transparent 50%),
-                  radial-gradient(circle at 75% 85%, rgba(244, 63, 94, 0.12) 0%, transparent 45%),
-                  var(--parchment);
-      background-size: 150% 150%;
+      background: #05080c; /* Celestial night space background */
       z-index: 99999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                  visibility 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      animation: auroraShift 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes auroraShift {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 50% 50%; }
-      100% { background-position: 100% 100%; }
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                  visibility 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      overflow: hidden;
     }
     
     #preloader.fade-out {
@@ -1702,167 +1803,310 @@
       visibility: hidden;
       pointer-events: none;
     }
-    
-    .preloader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      max-width: 320px;
-      width: 90%;
-      text-align: center;
-      z-index: 10;
-      position: relative;
+
+    /* Twinkling star canvas inside preloader */
+    #preloader-stars-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    /* Soft glowing backing behind sketchbook */
-    .preloader-content::after {
-      content: "";
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 160px;
-      height: 160px;
-      background: radial-gradient(circle, var(--sky-blue) 0%, transparent 70%);
-      opacity: 0.15;
-      z-index: -1;
-      filter: blur(25px);
+    /* Animated constellation drawing panel */
+    .preloader-drawing-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      z-index: 5;
+      margin-bottom: 2rem;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    .preloader-drawing-container.fade-away {
+      transform: scale(0.85);
+      opacity: 0;
       pointer-events: none;
     }
-    
-    /* Sketchbook Cover Icon SVG */
-    .preloader-book-svg {
-      width: 95px;
-      height: 95px;
-      filter: drop-shadow(0 8px 25px rgba(13, 148, 136, 0.22));
-    }
-    
-    .preloader-book-svg .book-cover {
-      fill: var(--gold); /* rich solar gold cover */
-      stroke: var(--ink);
-      stroke-width: 2.2;
-    }
-    
-    .preloader-book-svg .pencil-draw {
-      stroke: var(--saffron); /* vibrant saffron red stroke */
-      stroke-width: 2.8;
-      stroke-linecap: round;
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: drawCircle 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-    
-    @keyframes drawCircle {
-      to { stroke-dashoffset: 0; }
-    }
-    
-    /* Loading text */
-    .preloader-status {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: var(--ink);
-      min-height: 2rem;
-      transition: opacity 0.3s ease;
-      text-shadow: 0 4px 15px rgba(13, 148, 136, 0.12);
-    }
-    
-    /* Progress track & pencil */
-    .progress-container {
+
+    .preloader-constellation-svg {
       width: 100%;
-      height: 35px;
+      height: 100%;
+      filter: drop-shadow(0 0 10px rgba(255, 209, 102, 0.35));
+    }
+
+    #constellation-path {
+      stroke-dasharray: 650;
+      stroke-dashoffset: 650;
+      transition: stroke-dashoffset 0.05s linear;
+      filter: drop-shadow(0 0 8px #ffd166);
+    }
+
+    .constellation-node {
+      opacity: 0;
+      transform: scale(0);
+      transform-origin: center;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    }
+
+    .constellation-node.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @keyframes nodeTwinkle {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px currentColor); opacity: 0.85; }
+      50% { transform: scale(1.3); filter: drop-shadow(0 0 8px currentColor); opacity: 1; }
+    }
+
+    .constellation-node.active {
+      animation: nodeTwinkle 1.8s ease-in-out infinite;
+    }
+
+    .glowing-quill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 6;
+      filter: drop-shadow(0 0 8px #ffd166);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .glowing-quill.active {
+      opacity: 1;
+    }
+
+    /* Bloom paint spill wrapper */
+    .bloom-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .bloom-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .paint-blob {
+      transition: r 0.4s cubic-bezier(0.15, 0.85, 0.25, 1); /* organic wobbly expand */
+    }
+
+    /* Central Magic Text */
+    .bloom-text-container {
+      z-index: 5;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    #preloader.active-bloom .bloom-text-container {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .bloom-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    .preloader-status {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #94a3b8;
+      min-height: 1.5rem;
+      transition: opacity 0.3s ease;
+      text-shadow: 0 0 8px rgba(148, 163, 184, 0.3);
+    }
+
+    
+    
+    /* -------------------------------------------------------------
+       15. BRASS COMPASS THEME TOGGLE STYLING
+       ------------------------------------------------------------- */
+    .theme-toggle-wrapper {
+      position: absolute;
+      right: 2.5rem;
+      bottom: 8px;
+      z-index: 1010;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .compass-toggle {
+      width: 48px;
+      height: 48px;
+      background: none;
+      border: none;
+      cursor: pointer;
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 0;
+      transform-origin: center;
+      animation: compassWobble 6s ease-in-out infinite;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    
-    /* Wobbly pencil-sketch bar track */
-    .progress-track {
-      position: absolute;
-      width: 100%;
-      height: 3px;
-      background: var(--ink);
-      opacity: 0.08;
-      border-radius: 2px;
+
+    .compass-toggle:hover {
+      animation: compassHoverWobble 0.8s ease-in-out infinite;
+      transform: scale(1.12);
     }
-    
-    /* Active progress line - beautiful rainbow trail! */
-    .progress-fill {
-      position: absolute;
-      height: 3px;
-      background: linear-gradient(to right, var(--terracotta), var(--sage), var(--gold));
-      width: 0%;
-      border-radius: 2px;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+
+    .compass-toggle:active {
+      transform: scale(0.92);
     }
-    
-    /* Floating pencil tip drawing the bar */
-    .progress-pencil {
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      left: 0%;
-      top: -11px;
-      transform: translateX(-50%) rotate(-45deg);
-      pointer-events: none;
-      z-index: 5;
-      animation: pencilWiggle 0.15s ease-in-out infinite alternate;
+
+    .compass-toggle.spinning {
+      transform: rotate(720deg) scale(1.15);
+      transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
     }
-    
-    @keyframes pencilWiggle {
-      from { transform: translateX(-50%) rotate(-42deg); }
-      to { transform: translateX(-50%) rotate(-48deg); }
+
+    @keyframes compassWobble {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
     }
+
+    @keyframes compassHoverWobble {
+      0%, 100% { transform: rotate(0deg) scale(1.12); }
+      25% { transform: rotate(-8deg) scale(1.12); }
+      75% { transform: rotate(8deg) scale(1.12); }
+    }
+
     
-    /* Footer styling */
-    .footer-sketchbook {
-      text-align: center;
-      padding: 3rem 0;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 0.95rem;
-      color: rgba(44, 30, 21, 0.65);
-      border-top: 1px dashed rgba(44, 30, 21, 0.2);
+    /* Responsive adjustments for the compass in mobile view */
+    @media (max-width: 600px) {
+      .theme-toggle-wrapper {
+        right: 0.6rem;
+        bottom: 8px;
+      }
+      .compass-toggle {
+        width: 38px;
+        height: 38px;
+      }
+      .compass-toggle svg {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       16. DRAGGABLE STAMPS INTERACTIVE STYLING
+       ------------------------------------------------------------- */
+    .stamp-card {
+      cursor: grab;
+      touch-action: none; /* Prevent browser scrolling while dragging stamps */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .stamp-card.dragging {
+      z-index: 100 !important;
+      cursor: grabbing !important;
+      box-shadow: 15px 25px 45px rgba(44, 30, 21, 0.38) !important;
+      transition: none !important; /* Snappy, real-time dragging follow-through */
+    }
+
+    body.cosmic-dark-mode .stamp-card.dragging {
+      box-shadow: 0 0 35px var(--glow-color) !important;
     }
   </style>
+
+
+
 </head>
 <body>
 
   <!-- Handcrafted Preloader overlay screen -->
   <div id="preloader" role="status" aria-live="polite">
-    <div class="preloader-content">
-      <!-- Illustrated Sketchbook drawing SVG icon -->
-      <svg class="preloader-book-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Cardboard sketchbook base -->
-        <rect class="book-cover" x="15" y="15" width="70" height="70" rx="8" />
-        <!-- Hand-drawn leaf swirl being sketched -->
-        <path class="pencil-draw" d="M 50 35 C 58 35, 62 45, 50 55 C 40 45, 42 35, 50 35 Z" fill="none" />
-        <path class="pencil-draw" d="M 50 55 L 50 65" fill="none" />
-        <!-- Binder spine line -->
-        <line x1="30" y1="15" x2="30" y2="85" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3" />
+    <!-- Starry background space canvas -->
+    <canvas id="preloader-stars-canvas"></canvas>
+
+    <!-- Animated golden constellation drawing of C K -->
+    <div class="preloader-drawing-container">
+      <svg class="preloader-constellation-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Golden path representing C K -->
+        <path id="constellation-path" d="M 50,45 C 50,45, 20,40, 20,100 C 20,160, 50,155, 50,155 M 100,45 L 100,155 M 100,100 L 150,45 M 100,100 L 150,155" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        
+        <!-- Constellation star nodes -->
+        <circle cx="20" cy="100" r="4.5" fill="var(--terracotta)" class="constellation-node" />
+        <circle cx="50" cy="45" r="4.5" fill="var(--saffron)" class="constellation-node" />
+        <circle cx="50" cy="155" r="4.5" fill="var(--saffron)" class="constellation-node" />
+        <circle cx="100" cy="45" r="4.5" fill="var(--sky-blue)" class="constellation-node" />
+        <circle cx="100" cy="155" r="4.5" fill="var(--sky-blue)" class="constellation-node" />
+        <circle cx="100" cy="100" r="4.5" fill="var(--terracotta)" class="constellation-node" />
+        <circle cx="150" cy="45" r="4.5" fill="var(--saffron)" class="constellation-node" />
+        <circle cx="150" cy="155" r="4.5" fill="var(--saffron)" class="constellation-node" />
       </svg>
       
-      <!-- Handwritten status cycle -->
-      <p class="preloader-status">Unbinding travel journal...</p>
-      
-      <!-- Progress Bar container with Pencil drawing tip -->
-      <div class="progress-container">
-        <div class="progress-track" aria-hidden="true"></div>
-        <div class="progress-fill" aria-hidden="true"></div>
-        <!-- Vector Pencil tip drawing the bar -->
-        <svg class="progress-pencil" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Pencil wood body -->
-          <polygon points="10,40 20,20 40,0 40,10 20,30" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
-          <!-- Graphite tip -->
-          <polygon points="10,40 13,34 16,37" fill="var(--ink)" />
-          <!-- Saffron eraser end -->
-          <rect x="34" y="0" width="8" height="8" fill="var(--saffron)" stroke="var(--ink)" stroke-width="1" />
+      <!-- Glowing quill tip pointer -->
+      <div id="glowing-quill" class="glowing-quill">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none">
+          <path d="M12 2C8 6 6 10 6 14C6 17.3 8.7 20 12 20C15.3 20 18 17.3 18 14C18 10 16 6 12 2Z" fill="url(#quill-gold-pre)" stroke="#2c1e15" stroke-width="1.2" />
+          <line x1="12" y1="18" x2="12" y2="8" stroke="#2c1e15" stroke-width="1" />
+          <defs>
+            <linearGradient id="quill-gold-pre" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff2a3" />
+              <stop offset="100%" stop-color="#f59e0b" />
+            </linearGradient>
+          </defs>
         </svg>
       </div>
     </div>
+
+    <!-- Watercolor Bloom Paint bleed area -->
+    <div class="bloom-wrapper">
+      <svg class="bloom-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="paint-bleed-pre" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="35" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+
+        <g filter="url(#paint-bleed-pre)">
+          <!-- Cyan Blob -->
+          <circle class="paint-blob blob-cyan" cx="150" cy="150" r="0" fill="var(--sky-blue)" opacity="0.45" />
+          <!-- Magenta Blob -->
+          <circle class="paint-blob blob-magenta" cx="130" cy="165" r="0" fill="var(--saffron)" opacity="0.4" />
+          <!-- Solar Gold Blob -->
+          <circle class="paint-blob blob-gold" cx="170" cy="135" r="0" fill="var(--gold)" opacity="0.4" />
+          <!-- Teal Central Blob -->
+          <circle class="paint-blob blob-teal" cx="150" cy="150" r="0" fill="var(--terracotta)" opacity="0.55" />
+        </g>
+      </svg>
+
+      <!-- Central Magic Text revealing inside the bloom -->
+      <div class="bloom-text-container">
+        <h1 class="bloom-title italic-title">Chethan Raje Urs K</h1>
+        <p class="preloader-status">Dipping quill in celestial stardust...</p>
+      </div>
+    </div>
   </div>
+
 
   <!-- Background SVG Paper Noise is loaded via body::before CSS to avoid blocking DOM -->
 
@@ -1882,7 +2126,63 @@
       <a href="#stamps" class="tab" data-sec="stamps">Stamps</a>
       <a href="#letter" class="tab" data-sec="letter">Letter</a>
     </div>
+
+    <!-- Vintage Brass Compass Theme Switcher -->
+    <div class="theme-toggle-wrapper">
+      <button class="compass-toggle" id="theme-toggle" aria-label="Toggle Cosmic Dark Mode" title="Rotate compass to travel between Light Parchment and Cosmic Nebula">
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer brass ring shadow -->
+          <circle cx="24" cy="24" r="21" fill="none" stroke="rgba(44, 30, 21, 0.15)" stroke-width="3" />
+          
+          <!-- Outer brass ring -->
+          <circle cx="24" cy="24" r="20" fill="url(#brass-grad)" stroke="var(--ink)" stroke-width="2.5" />
+          <circle cx="24" cy="24" r="17" fill="none" stroke="var(--ink)" stroke-width="0.8" stroke-dasharray="2 2.5" />
+          
+          <!-- Dial ticks and directions -->
+          <g class="compass-dial" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round">
+            <!-- N S E W Ticks -->
+            <line x1="24" y1="6" x2="24" y2="9" stroke="var(--ink)" />
+            <line x1="24" y1="39" x2="24" y2="42" stroke="var(--ink)" />
+            <line x1="6" y1="24" x2="9" y2="24" stroke="var(--ink)" />
+            <line x1="39" y1="24" x2="42" y2="24" stroke="var(--ink)" />
+            <!-- Diagonal Ticks -->
+            <line x1="11.5" y1="11.5" x2="13.5" y2="13.5" stroke="var(--ink)" stroke-width="0.8" />
+            <line x1="36.5" y1="11.5" x2="34.5" y2="13.5" stroke="var(--ink)" stroke-width="0.8" />
+            <line x1="11.5" y1="36.5" x2="13.5" y2="34.5" stroke="var(--ink)" stroke-width="0.8" />
+            <line x1="36.5" y1="36.5" x2="34.5" y2="34.5" stroke="var(--ink)" stroke-width="0.8" />
+          </g>
+          
+          <!-- Compass Glass Shine overlay -->
+          <path d="M 12 12 A 17 17 0 0 1 36 12 Q 24 16 12 12" fill="#ffffff" opacity="0.15" />
+          
+          <!-- Floating Compass Needle -->
+          <g class="compass-needle" id="compass-needle" transform="rotate(45, 24, 24)">
+            <!-- North Pointer (Red Saffron) -->
+            <polygon points="24,6 27,24 24,21" fill="var(--saffron)" stroke="var(--ink)" stroke-width="1.2" stroke-linejoin="round" />
+            <!-- South Pointer (Silver Parchment) -->
+            <polygon points="24,42 27,24 24,27" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.2" stroke-linejoin="round" />
+            <polygon points="24,6 21,24 24,21" fill="#f87171" stroke="var(--ink)" stroke-width="1.2" stroke-linejoin="round" />
+            <polygon points="24,42 21,24 24,27" fill="#cbd5e1" stroke="var(--ink)" stroke-width="1.2" stroke-linejoin="round" />
+          </g>
+          
+          <!-- Brass Center Pivot Bolt -->
+          <circle cx="24" cy="24" r="3.5" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.2" />
+          <circle cx="24" cy="24" r="1.5" fill="#ffffff" />
+          
+          <!-- Brass Gradient Definitions -->
+          <defs>
+            <radialGradient id="brass-grad" cx="40%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#fff2a3" />
+              <stop offset="40%" stop-color="#d4af37" />
+              <stop offset="90%" stop-color="#aa7c11" />
+              <stop offset="100%" stop-color="#705005" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </button>
+    </div>
   </nav>
+
 
   <!-- -------------------------------------------------------------
        SECTION 1 — COVER (Hero)
@@ -3116,21 +3416,33 @@
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        // Float downward and slightly to the left/right randomly
-        this.vx = (Math.random() - 0.5) * 1.2;
-        this.vy = Math.random() * 0.8 + 0.3;
-        this.size = Math.random() * 4 + 2;
+        // Float downward and slightly outward randomly
+        this.vx = (Math.random() - 0.5) * 1.6;
+        this.vy = Math.random() * 0.9 + 0.2;
+        this.size = Math.random() * 6 + 3.5;
         this.alpha = 1;
-        this.color = Math.random() > 0.4 ? "#708a76" : "#c9a84c"; // Sage or Gold
-        this.rotSpeed = (Math.random() - 0.5) * 0.05;
+        this.rotSpeed = (Math.random() - 0.5) * 0.06;
         this.rot = Math.random() * Math.PI;
+        
+        // Randomly assign shape: 'star' or 'leaf'
+        this.shape = Math.random() > 0.45 ? "star" : "leaf";
+        
+        // Dynamic theme-based stardust colors
+        const isDark = document.body.classList.contains("cosmic-dark-mode");
+        if (isDark) {
+          const colors = ["#00f2fe", "#ffd166", "#ff2a5f", "#c084fc"]; // neon cyan, gold, rose, lavender
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        } else {
+          const colors = ["#708a76", "#c9a84c", "#f43f5e", "#0d9488"]; // sage, sunset gold, saffron, historic teal
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
         this.rot += this.rotSpeed;
-        this.alpha -= 0.015; // Slow fade out
+        this.alpha -= 0.015; // Smooth stardust dissolve
       }
 
       draw() {
@@ -3140,12 +3452,28 @@
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rot);
         
-        // Draw tiny almond-shaped baby leaves
-        ctx.beginPath();
-        ctx.moveTo(0, -this.size);
-        ctx.quadraticCurveTo(this.size * 0.6, 0, 0, this.size);
-        ctx.quadraticCurveTo(-this.size * 0.6, 0, 0, -this.size);
-        ctx.fill();
+        if (this.shape === "star") {
+          // Draw sparkling 4-pointed cosmic star
+          ctx.beginPath();
+          ctx.moveTo(0, -this.size);
+          ctx.lineTo(this.size * 0.25, -this.size * 0.25);
+          ctx.lineTo(this.size, 0);
+          ctx.lineTo(this.size * 0.25, this.size * 0.25);
+          ctx.lineTo(0, this.size);
+          ctx.lineTo(-this.size * 0.25, this.size * 0.25);
+          ctx.lineTo(-this.size, 0);
+          ctx.lineTo(-this.size * 0.25, -this.size * 0.25);
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          // Draw organic leaf vein slice
+          ctx.beginPath();
+          ctx.moveTo(0, -this.size);
+          ctx.quadraticCurveTo(this.size * 0.6, 0, 0, this.size);
+          ctx.quadraticCurveTo(-this.size * 0.6, 0, 0, -this.size);
+          ctx.fill();
+        }
+        
         ctx.restore();
       }
     }
@@ -3188,44 +3516,261 @@
           }
         }
 
-        // Draw primary handcrafted green leaf cursor
+        // Draw primary handcrafted glowing vector quill pen cursor
+        const isDark = document.body.classList.contains("cosmic-dark-mode");
         ctx.save();
         ctx.translate(leafX, leafY);
         ctx.rotate(leafAngle);
         
-        // Shadow offset for floating realism
-        ctx.shadowColor = "rgba(44, 30, 21, 0.15)";
-        ctx.shadowBlur = 6;
-        ctx.shadowOffsetX = 3;
-        ctx.shadowOffsetY = 4;
+        // Dynamic shadow/glow settings for floating depth
+        if (isDark) {
+          ctx.shadowColor = "rgba(0, 242, 254, 0.75)";
+          ctx.shadowBlur = 12;
+        } else {
+          ctx.shadowColor = "rgba(44, 30, 21, 0.22)";
+          ctx.shadowBlur = 6;
+          ctx.shadowOffsetX = 3;
+          ctx.shadowOffsetY = 4;
+        }
 
-        // Leaf border/stroke
-        ctx.fillStyle = "#708a76"; // Sage green base
-        ctx.strokeStyle = "#2c1e15"; // Deep ink outline
-        ctx.lineWidth = 1.8;
-
+        // 1. Draw elegant quill pen body contour
         ctx.beginPath();
-        // Standard leaf geometry path
-        ctx.moveTo(0, -12);
-        ctx.bezierCurveTo(7, -6, 7, 6, 0, 12);
-        ctx.bezierCurveTo(-7, 6, -7, -6, 0, -12);
+        ctx.moveTo(0, -18);
+        ctx.bezierCurveTo(8, -8, 6, 12, 0, 18);
+        ctx.bezierCurveTo(-6, 12, -8, -8, 0, -18);
+        ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.9)" : "#fdfbfa";
+        ctx.strokeStyle = isDark ? "#00f2fe" : "#2c1e15";
+        ctx.lineWidth = 2.2;
         ctx.fill();
         ctx.stroke();
 
-        // Main center vein line
+        // 2. Draw center slit ink line
         ctx.beginPath();
-        ctx.moveTo(0, -10);
-        ctx.lineTo(0, 14);
-        ctx.strokeStyle = "#2c1e15";
-        ctx.lineWidth = 1;
+        ctx.moveTo(0, -14);
+        ctx.lineTo(0, 12);
+        ctx.strokeStyle = isDark ? "#00f2fe" : "#2c1e15";
+        ctx.lineWidth = 1.2;
         ctx.stroke();
+
+        // 3. Draw golden metallic nib tip
+        ctx.beginPath();
+        ctx.moveTo(-3, -13);
+        ctx.lineTo(3, -13);
+        ctx.lineTo(0, -18);
+        ctx.closePath();
+        ctx.fillStyle = "#ffd166"; // Cosmic solar gold nib tip
+        ctx.fill();
 
         ctx.restore();
       }
 
+
       requestAnimationFrame(animateCursorPhysics);
     }
     animateCursorPhysics();
+
+    /* =============================================================
+       3b. BRASS COMPASS THEME SWITCHER DRIVER
+       ============================================================= */
+    const themeToggle = document.getElementById("theme-toggle");
+    const compassNeedle = document.getElementById("compass-needle");
+
+    // Load theme from localStorage on page startup
+    if (localStorage.getItem("theme") === "cosmic-dark-mode") {
+      document.body.classList.add("cosmic-dark-mode");
+      // Face needle north-east initially for dark mode
+      compassNeedle.setAttribute("transform", "rotate(225, 24, 24)");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      // Trigger click vibration and spinning mechanics
+      themeToggle.classList.add("spinning");
+      
+      // Magnetic anomaly needle spin!
+      const isCurrentlyDark = document.body.classList.contains("cosmic-dark-mode");
+      const currentRotate = isCurrentlyDark ? 225 : 45;
+      const targetRotate = currentRotate + 720 + (Math.random() * 40 - 20); // Spin 2 full rounds + wiggle
+      compassNeedle.style.transition = "transform 1.2s cubic-bezier(0.19, 1, 0.22, 1)";
+      compassNeedle.style.transform = `rotate(${targetRotate}deg)`;
+
+      // Radial blast of stardust sparks from the compass center!
+      const rect = themeToggle.getBoundingClientRect();
+      const compassX = rect.left + rect.width / 2;
+      const compassY = rect.top + rect.height / 2;
+      
+      // Inject particles into the canvas queue
+      for (let i = 0; i < 25; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.5 + Math.random() * 4.5;
+        const p = new DriftParticle(compassX, compassY);
+        p.vx = Math.cos(angle) * speed;
+        p.vy = Math.sin(angle) * speed;
+        p.size = Math.random() * 5 + 3.5;
+        // Launch gold particles when moving from Dark to Light, cyan when moving from Light to Dark
+        p.color = isCurrentlyDark ? "#f59e0b" : "#00f2fe";
+        particles.push(p);
+      }
+
+      // Perform the transition swap
+      setTimeout(() => {
+        document.body.classList.toggle("cosmic-dark-mode");
+        
+        // Save preference
+        if (document.body.classList.contains("cosmic-dark-mode")) {
+          localStorage.setItem("theme", "cosmic-dark-mode");
+        } else {
+          localStorage.setItem("theme", "light-mode");
+        }
+      }, 300);
+
+      // Clean up classes and needle transforms after spin finishes
+      setTimeout(() => {
+        themeToggle.classList.remove("spinning");
+        compassNeedle.style.transition = "";
+        compassNeedle.style.transform = "";
+        
+        // Face the needle dynamically based on current mode
+        const finalAngle = document.body.classList.contains("cosmic-dark-mode") ? 225 : 45;
+        compassNeedle.setAttribute("transform", `rotate(${finalAngle}, 24, 24)`);
+      }, 1200);
+    });
+
+
+    /* =============================================================
+       3c. 3D PERSPECTIVE CARD HOVER TILT PHYSICS
+       ============================================================= */
+    const tiltCards = document.querySelectorAll(".corkboard-card, .project-card, .stamp-card");
+
+    tiltCards.forEach(card => {
+      // Save initial styling (like notebook tilt rotations) so we can restore it on mouseleave
+      const initialStyle = card.getAttribute("style") || "";
+      card.setAttribute("data-initial-style", initialStyle);
+      
+      card.addEventListener("mousemove", (e) => {
+        // Skip on mobile screens or when card is being dragged
+        if (window.innerWidth <= 768 || card.classList.contains("dragging")) {
+          card.setAttribute("style", card.getAttribute("data-initial-style"));
+          return;
+        }
+
+        const rect = card.getBoundingClientRect();
+        const cardWidth = rect.width;
+        const cardHeight = rect.height;
+        
+        // Calculate pointer coordinates relative to card center (ratio between -0.5 and 0.5)
+        const mouseX = e.clientX - rect.left - cardWidth / 2;
+        const mouseY = e.clientY - rect.top - cardHeight / 2;
+        
+        // Calculate rotational degrees (max 10deg rotation)
+        const tiltX = (mouseY / cardHeight) * -10;
+        const tiltY = (mouseX / cardWidth) * 10;
+        
+        // Apply hardware accelerated perspective tilt transforms!
+        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
+        card.style.boxShadow = document.body.classList.contains("cosmic-dark-mode") 
+          ? "0 15px 35px var(--glow-color)" 
+          : "10px 18px 30px rgba(44, 30, 21, 0.28)";
+      });
+
+      card.addEventListener("mouseleave", () => {
+        // Reset card to original inline style state smoothly
+        card.setAttribute("style", card.getAttribute("data-initial-style"));
+      });
+    });
+
+    /* =============================================================
+       3d. DRAGGABLE ACHIEVEMENTS STAMPS ENGINE
+       ============================================================= */
+    const draggableStamps = document.querySelectorAll(".stamp-card");
+
+    draggableStamps.forEach(stamp => {
+      // Offset values in pixels relative to its natural grid coordinate
+      let currentX = 0;
+      let currentY = 0;
+      
+      let initialX = 0;
+      let initialY = 0;
+      let offsetX = 0;
+      let offsetY = 0;
+      let isDragging = false;
+
+      // Distribute subtle wobbly rotations initially to look like a physical journal board
+      const initialRotation = (Math.random() * 6 - 3); // between -3deg and 3deg
+      const startStyle = `rotate(${initialRotation}deg)`;
+      stamp.style.transform = startStyle;
+      stamp.setAttribute("data-initial-style", startStyle);
+
+      stamp.addEventListener("pointerdown", (e) => {
+        // Allow clicking external certification post links without triggering drag!
+        if (e.target.closest(".stamp-link") || e.target.closest("a")) {
+          return;
+        }
+
+        e.preventDefault();
+        isDragging = true;
+        stamp.classList.add("dragging");
+
+        initialX = e.clientX;
+        initialY = e.clientY;
+
+        // Current relational coordinate offsets
+        offsetX = currentX;
+        offsetY = currentY;
+
+        stamp.setPointerCapture(e.pointerId);
+
+        // Click stardust ink puff!
+        triggerInkPuff(e.clientX, e.clientY, document.body.classList.contains("cosmic-dark-mode") ? "#00f2fe" : "#708a76");
+      });
+
+      stamp.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - initialX;
+        const dy = e.clientY - initialY;
+
+        currentX = offsetX + dx;
+        currentY = offsetY + dy;
+
+        // Physical dragging transform (add scale and dragging rotation)
+        stamp.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(1.05) rotate(4deg)`;
+      });
+
+      const stopDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        stamp.classList.remove("dragging");
+        stamp.releasePointerCapture(e.pointerId);
+
+        // Lock in a casual rotated final coordinate
+        const finalRotation = (Math.random() * 8 - 4); // stuck angle offset
+        const finalTransform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${finalRotation}deg)`;
+        
+        stamp.style.transform = finalTransform;
+        
+        // Critically update our dataset so the 3D Perspective Tilt engine knows the new relative origin!
+        stamp.setAttribute("data-initial-style", finalTransform);
+        
+        // Thud drop ink splash!
+        triggerInkPuff(e.clientX, e.clientY, document.body.classList.contains("cosmic-dark-mode") ? "#ffd166" : "#c9a84c");
+      };
+
+      stamp.addEventListener("pointerup", stopDrag);
+      stamp.addEventListener("pointercancel", stopDrag);
+    });
+
+    // Helper to trigger a small blast of stardust particles on dragging/dropping seals
+    function triggerInkPuff(clientX, clientY, color) {
+      if (typeof DriftParticle === "undefined" || !particles) return;
+      for (let i = 0; i < 10; i++) {
+        const p = new DriftParticle(clientX, clientY);
+        p.vx = (Math.random() - 0.5) * 4.5;
+        p.vy = (Math.random() - 0.5) * 4.5 - 1.2; // drift slightly upward
+        p.size = Math.random() * 4 + 2.5;
+        p.color = color;
+        particles.push(p);
+      }
+    }
 
     /* =============================================================
        4. SCROLL-TRIGGERED INTERSECTION OBSERVER ANIMATIONS
@@ -3315,24 +3860,87 @@
       });
     });
     /* =============================================================
-       7. PRELOADER PROGRESS BAR DRIVER
+       7. COSMIC STARDUST PRELOADER DRIVER
        ============================================================= */
     const preloader = document.getElementById("preloader");
-    const progressFill = document.querySelector(".progress-fill");
-    const progressPencil = document.querySelector(".progress-pencil");
     const preloaderStatus = document.querySelector(".preloader-status");
+    const preloaderCanvas = document.getElementById("preloader-stars-canvas");
+    const preloaderCtx = preloaderCanvas.getContext("2d");
     
+    // Resize preloader canvas
+    function resizePreloaderCanvas() {
+      preloaderCanvas.width = window.innerWidth;
+      preloaderCanvas.height = window.innerHeight;
+    }
+    resizePreloaderCanvas();
+    window.addEventListener("resize", resizePreloaderCanvas);
+
+    // Stardust stars array
+    const preloaderStars = [];
+    for (let i = 0; i < 60; i++) {
+      preloaderStars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: Math.random() * 2 + 0.5,
+        twinkleSpeed: 0.02 + Math.random() * 0.04,
+        twinklePhase: Math.random() * Math.PI * 2,
+        driftX: (Math.random() - 0.5) * 0.15,
+        driftY: (Math.random() - 0.5) * 0.15
+      });
+    }
+
+    let isPreloaderRunning = true;
+    function animatePreloaderStars() {
+      if (!isPreloaderRunning) return;
+      preloaderCtx.clearRect(0, 0, preloaderCanvas.width, preloaderCanvas.height);
+      
+      preloaderCtx.fillStyle = "#ffffff";
+      preloaderStars.forEach(star => {
+        // Drift stars
+        star.x += star.driftX;
+        star.y += star.driftY;
+        
+        // Wrap around edges
+        if (star.x < 0) star.x = preloaderCanvas.width;
+        if (star.x > preloaderCanvas.width) star.x = 0;
+        if (star.y < 0) star.y = preloaderCanvas.height;
+        if (star.y > preloaderCanvas.height) star.y = 0;
+        
+        // Twinkle alpha
+        star.twinklePhase += star.twinkleSpeed;
+        const alpha = 0.35 + Math.sin(star.twinklePhase) * 0.55;
+        
+        preloaderCtx.save();
+        preloaderCtx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        preloaderCtx.beginPath();
+        preloaderCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        preloaderCtx.fill();
+        preloaderCtx.restore();
+      });
+      
+      requestAnimationFrame(animatePreloaderStars);
+    }
+    animatePreloaderStars();
+
+    // Constellation path & quill drawing physics
+    const constellationPath = document.getElementById("constellation-path");
+    const glowingQuill = document.getElementById("glowing-quill");
+    const pathNodes = document.querySelectorAll(".constellation-node");
+    
+    const pathLength = constellationPath.getTotalLength();
+    constellationPath.style.strokeDasharray = pathLength;
+    constellationPath.style.strokeDashoffset = pathLength;
+
     const loadingTexts = [
-      "Sharpening color pencils...",
-      "Mixing watercolor pigments...",
-      "Unbinding the journal spine...",
-      "Dipping the quill pen in ink...",
-      "Flipping through travel logs..."
+      "Dipping quill in celestial stardust...",
+      "Stirring solar gold and royal indigo...",
+      "Weaving digital constellations...",
+      "Binding interactive ledger pages...",
+      "Preparing creative scrapbook margins..."
     ];
-    
     let currentTextIndex = 0;
-    
-    // Cycle loading status text
+
+    // Cycle text
     const textInterval = setInterval(() => {
       preloaderStatus.style.opacity = 0;
       setTimeout(() => {
@@ -3342,34 +3950,112 @@
       }, 300);
     }, 1200);
 
-    // Dynamic progress driver simulating page resource loading
-    let progressValue = 0;
-    function simulateLoading() {
-      const increment = 1 + Math.random() * 4;
-      progressValue += increment;
-      if (progressValue > 100) progressValue = 100;
+    // Dynamic drawing loop
+    let drawingProgress = 0;
+    const drawingDuration = 3200; // 3.2 seconds drawing time
+    const startDrawingTime = performance.now();
+
+    // Node locations along the path (approximate percentages)
+    const nodeThresholds = [
+      { index: 0, pct: 0.1 },  // Left middle C
+      { index: 1, pct: 0.01 }, // Top left C
+      { index: 2, pct: 0.35 }, // Bottom left C
+      { index: 3, pct: 0.45 }, // Top K
+      { index: 4, pct: 0.65 }, // Bottom K
+      { index: 5, pct: 0.55 }, // Center K
+      { index: 6, pct: 0.8 },  // Top right K
+      { index: 7, pct: 0.98 }  // Bottom right K
+    ];
+
+    function drawConstellation(timestamp) {
+      const elapsed = timestamp - startDrawingTime;
+      drawingProgress = Math.min(1, elapsed / drawingDuration);
       
-      progressFill.style.width = `${progressValue}%`;
-      progressPencil.style.left = `${progressValue}%`;
-      
-      if (progressValue < 100) {
-        // Variable speeds for realistic feel
-        const delay = 25 + Math.random() * 70;
-        setTimeout(simulateLoading, delay);
+      const currentOffset = pathLength - (drawingProgress * pathLength);
+      constellationPath.style.strokeDashoffset = currentOffset;
+
+      // Position quill tip
+      if (drawingProgress < 1) {
+        glowingQuill.classList.add("active");
+        try {
+          const currentPoint = constellationPath.getPointAtLength(drawingProgress * pathLength);
+          glowingQuill.style.left = `${currentPoint.x}px`;
+          glowingQuill.style.top = `${currentPoint.y}px`;
+        } catch (e) {
+          // Fallback if getPointAtLength fails temporarily
+        }
+      }
+
+      // Activate nodes
+      nodeThresholds.forEach(node => {
+        if (drawingProgress >= node.pct) {
+          pathNodes[node.index].classList.add("active");
+        }
+      });
+
+      if (drawingProgress < 1) {
+        requestAnimationFrame(drawConstellation);
       } else {
-        // Finished loading!
+        // Drawing finished! Blast into watercolor bloom!
+        glowingQuill.classList.remove("active");
+        document.querySelector(".preloader-drawing-container").classList.add("fade-away");
+        
         clearInterval(textInterval);
+        preloader.classList.add("active-bloom");
         preloaderStatus.textContent = "Bound & Crafted. Opening sketchbook 🍃";
-        setTimeout(() => {
-          preloader.classList.add("fade-out");
-        }, 800);
+        preloaderStatus.style.opacity = 1;
+        
+        // Blooming Blob Radii Animation
+        animateBlooms();
       }
     }
 
-    // Trigger loading on page load
+    function animateBlooms() {
+      const blobs = [
+        { selector: ".blob-cyan", targetR: 135 },
+        { selector: ".blob-magenta", targetR: 110 },
+        { selector: ".blob-gold", targetR: 105 },
+        { selector: ".blob-teal", targetR: 85 }
+      ];
+      
+      blobs.forEach(b => {
+        const element = document.querySelector(b.selector);
+        let curR = 0;
+        const duration = 1200; // 1.2s bloom spread
+        const startTime = performance.now();
+        
+        function expand(time) {
+          const elapsed = time - startTime;
+          const progress = Math.min(1, elapsed / duration);
+          // Eased expand
+          const easeProgress = 1 - Math.pow(1 - progress, 3); 
+          
+          element.setAttribute("r", easeProgress * b.targetR);
+          
+          if (progress < 1) {
+            requestAnimationFrame(expand);
+          }
+        }
+        requestAnimationFrame(expand);
+      });
+
+      // After bloom settles, fade preloader out completely
+      setTimeout(() => {
+        preloader.classList.add("fade-out");
+        // Shutdown starry loop after preloader exits
+        setTimeout(() => {
+          isPreloaderRunning = false;
+        }, 1200);
+      }, 1600);
+    }
+
+    // Trigger preloader drawing on load
     window.addEventListener("load", () => {
-      setTimeout(simulateLoading, 400); // Small initial delay before drawing starts
+      setTimeout(() => {
+        requestAnimationFrame(drawConstellation);
+      }, 400); // Small initial delay
     });
+
   </script>
 
 </body>
