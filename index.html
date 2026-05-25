@@ -1675,7 +1675,12 @@
     #preloader {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--parchment);
+      background: radial-gradient(circle at 15% 15%, rgba(13, 148, 136, 0.16) 0%, transparent 45%),
+                  radial-gradient(circle at 85% 35%, rgba(2, 132, 199, 0.16) 0%, transparent 45%),
+                  radial-gradient(circle at 35% 75%, rgba(245, 158, 11, 0.14) 0%, transparent 50%),
+                  radial-gradient(circle at 75% 85%, rgba(244, 63, 94, 0.12) 0%, transparent 45%),
+                  var(--parchment);
+      background-size: 150% 150%;
       z-index: 99999;
       display: flex;
       flex-direction: column;
@@ -1683,6 +1688,13 @@
       justify-content: center;
       transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
                   visibility 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      animation: auroraShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraShift {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 50% 50%; }
+      100% { background-position: 100% 100%; }
     }
     
     #preloader.fade-out {
@@ -1700,24 +1712,41 @@
       width: 90%;
       text-align: center;
       z-index: 10;
+      position: relative;
+    }
+
+    /* Soft glowing backing behind sketchbook */
+    .preloader-content::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, var(--sky-blue) 0%, transparent 70%);
+      opacity: 0.15;
+      z-index: -1;
+      filter: blur(25px);
+      pointer-events: none;
     }
     
     /* Sketchbook Cover Icon SVG */
     .preloader-book-svg {
-      width: 90px;
-      height: 90px;
-      filter: drop-shadow(4px 6px 10px rgba(11, 26, 41, 0.12));
+      width: 95px;
+      height: 95px;
+      filter: drop-shadow(0 8px 25px rgba(13, 148, 136, 0.22));
     }
     
     .preloader-book-svg .book-cover {
-      fill: var(--card-bg);
+      fill: var(--gold); /* rich solar gold cover */
       stroke: var(--ink);
       stroke-width: 2.2;
     }
     
     .preloader-book-svg .pencil-draw {
-      stroke: var(--terracotta);
-      stroke-width: 2.5;
+      stroke: var(--saffron); /* vibrant saffron red stroke */
+      stroke-width: 2.8;
       stroke-linecap: round;
       stroke-dasharray: 200;
       stroke-dashoffset: 200;
@@ -1733,10 +1762,11 @@
       font-family: var(--font-display);
       font-weight: 700;
       font-style: italic;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--ink);
       min-height: 2rem;
       transition: opacity 0.3s ease;
+      text-shadow: 0 4px 15px rgba(13, 148, 136, 0.12);
     }
     
     /* Progress track & pencil */
@@ -1754,18 +1784,18 @@
       width: 100%;
       height: 3px;
       background: var(--ink);
-      opacity: 0.1;
+      opacity: 0.08;
       border-radius: 2px;
     }
     
-    /* Active progress line */
+    /* Active progress line - beautiful rainbow trail! */
     .progress-fill {
       position: absolute;
       height: 3px;
-      background: var(--terracotta);
+      background: linear-gradient(to right, var(--terracotta), var(--sage), var(--gold));
       width: 0%;
       border-radius: 2px;
-      box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
     }
     
     /* Floating pencil tip drawing the bar */
