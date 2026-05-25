@@ -1669,6 +1669,123 @@
       transform: rotateY(0deg) translateX(0);
     }
 
+    /* -------------------------------------------------------------
+       14. PRELOADER OVERLAY
+       ------------------------------------------------------------- */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--parchment);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                  visibility 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    #preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      z-index: 10;
+    }
+    
+    /* Sketchbook Cover Icon SVG */
+    .preloader-book-svg {
+      width: 90px;
+      height: 90px;
+      filter: drop-shadow(4px 6px 10px rgba(11, 26, 41, 0.12));
+    }
+    
+    .preloader-book-svg .book-cover {
+      fill: var(--card-bg);
+      stroke: var(--ink);
+      stroke-width: 2.2;
+    }
+    
+    .preloader-book-svg .pencil-draw {
+      stroke: var(--terracotta);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawCircle 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+    
+    /* Loading text */
+    .preloader-status {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--ink);
+      min-height: 2rem;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Progress track & pencil */
+    .progress-container {
+      width: 100%;
+      height: 35px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Wobbly pencil-sketch bar track */
+    .progress-track {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: var(--ink);
+      opacity: 0.1;
+      border-radius: 2px;
+    }
+    
+    /* Active progress line */
+    .progress-fill {
+      position: absolute;
+      height: 3px;
+      background: var(--terracotta);
+      width: 0%;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+    }
+    
+    /* Floating pencil tip drawing the bar */
+    .progress-pencil {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: 0%;
+      top: -11px;
+      transform: translateX(-50%) rotate(-45deg);
+      pointer-events: none;
+      z-index: 5;
+      animation: pencilWiggle 0.15s ease-in-out infinite alternate;
+    }
+    
+    @keyframes pencilWiggle {
+      from { transform: translateX(-50%) rotate(-42deg); }
+      to { transform: translateX(-50%) rotate(-48deg); }
+    }
+    
     /* Footer styling */
     .footer-sketchbook {
       text-align: center;
@@ -1682,6 +1799,40 @@
   </style>
 </head>
 <body>
+
+  <!-- Handcrafted Preloader overlay screen -->
+  <div id="preloader" role="status" aria-live="polite">
+    <div class="preloader-content">
+      <!-- Illustrated Sketchbook drawing SVG icon -->
+      <svg class="preloader-book-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cardboard sketchbook base -->
+        <rect class="book-cover" x="15" y="15" width="70" height="70" rx="8" />
+        <!-- Hand-drawn leaf swirl being sketched -->
+        <path class="pencil-draw" d="M 50 35 C 58 35, 62 45, 50 55 C 40 45, 42 35, 50 35 Z" fill="none" />
+        <path class="pencil-draw" d="M 50 55 L 50 65" fill="none" />
+        <!-- Binder spine line -->
+        <line x1="30" y1="15" x2="30" y2="85" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3" />
+      </svg>
+      
+      <!-- Handwritten status cycle -->
+      <p class="preloader-status">Unbinding travel journal...</p>
+      
+      <!-- Progress Bar container with Pencil drawing tip -->
+      <div class="progress-container">
+        <div class="progress-track" aria-hidden="true"></div>
+        <div class="progress-fill" aria-hidden="true"></div>
+        <!-- Vector Pencil tip drawing the bar -->
+        <svg class="progress-pencil" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Pencil wood body -->
+          <polygon points="10,40 20,20 40,0 40,10 20,30" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
+          <!-- Graphite tip -->
+          <polygon points="10,40 13,34 16,37" fill="var(--ink)" />
+          <!-- Saffron eraser end -->
+          <rect x="34" y="0" width="8" height="8" fill="var(--saffron)" stroke="var(--ink)" stroke-width="1" />
+        </svg>
+      </div>
+    </div>
+  </div>
 
   <!-- Background SVG Paper Noise is loaded via body::before CSS to avoid blocking DOM -->
 
@@ -3132,6 +3283,62 @@
           stamp.style.transform = "";
         }, 220);
       });
+    });
+    /* =============================================================
+       7. PRELOADER PROGRESS BAR DRIVER
+       ============================================================= */
+    const preloader = document.getElementById("preloader");
+    const progressFill = document.querySelector(".progress-fill");
+    const progressPencil = document.querySelector(".progress-pencil");
+    const preloaderStatus = document.querySelector(".preloader-status");
+    
+    const loadingTexts = [
+      "Sharpening color pencils...",
+      "Mixing watercolor pigments...",
+      "Unbinding the journal spine...",
+      "Dipping the quill pen in ink...",
+      "Flipping through travel logs..."
+    ];
+    
+    let currentTextIndex = 0;
+    
+    // Cycle loading status text
+    const textInterval = setInterval(() => {
+      preloaderStatus.style.opacity = 0;
+      setTimeout(() => {
+        currentTextIndex = (currentTextIndex + 1) % loadingTexts.length;
+        preloaderStatus.textContent = loadingTexts[currentTextIndex];
+        preloaderStatus.style.opacity = 1;
+      }, 300);
+    }, 1200);
+
+    // Dynamic progress driver simulating page resource loading
+    let progressValue = 0;
+    function simulateLoading() {
+      const increment = 1 + Math.random() * 4;
+      progressValue += increment;
+      if (progressValue > 100) progressValue = 100;
+      
+      progressFill.style.width = `${progressValue}%`;
+      progressPencil.style.left = `${progressValue}%`;
+      
+      if (progressValue < 100) {
+        // Variable speeds for realistic feel
+        const delay = 25 + Math.random() * 70;
+        setTimeout(simulateLoading, delay);
+      } else {
+        // Finished loading!
+        clearInterval(textInterval);
+        preloaderStatus.textContent = "Bound & Crafted. Opening sketchbook 🍃";
+        setTimeout(() => {
+          preloader.classList.add("fade-out");
+        }, 800);
+      }
+    }
+
+    // Trigger loading on page load
+    window.addEventListener("load", () => {
+      setTimeout(simulateLoading, 400); // Small initial delay before drawing starts
     });
   </script>
 
