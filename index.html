@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chethan Raje Urs K — Roots & Code Sketchbook</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Explore the handcrafted travel-journal portfolio of Chethan Raje Urs K, a BCA student and developer from Mysuru, Karnataka. Discover digital creations rooted in culture and code.">
+  <meta name="keywords" content="Chethan Raje Urs K, Portfolio, BCA Student, Amrita Vishwa Vidyapeetham, Mysuru, Web Developer, ShaktiNavam, Travel Journal, Handcrafted Website">
+  <meta name="author" content="Chethan Raje Urs K">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* -------------------------------------------------------------
+       1. DESIGN SYSTEM & TOKENS
+       ------------------------------------------------------------- */
+    :root {
+      --parchment: #fbf8f3;
+      --card-bg: #f5eedc;
+      --ink: #2c1e15;
+      --terracotta: #c96547;
+      --sage: #708a76;
+      --ochre: #e8dec9;
+      --mauve: #c9a7a0;
+      --gold: #c9a84c;
+      --sky-blue: #98b9c4;
+      --saffron: #e76f51;
+      --royal-purple: #4a154b;
+      
+      --font-display: 'Fraunces', serif;
+      --font-body: 'Lora', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--parchment);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       2. TEXTURES & GLOBAL OVERLAYS
+       ------------------------------------------------------------- */
+    /* Fixed Paper Grain Noise Filter Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.055;
+      pointer-events: none;
+      z-index: 10000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Soft Vignette framing page edges */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: inset 0 0 100px rgba(44, 30, 21, 0.25);
+    }
+
+    /* -------------------------------------------------------------
+       3. CUSTOM PHYSICS CURSOR (Leaf Trail Canvas)
+       ------------------------------------------------------------- */
+    #cursor-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10001;
+      pointer-events: none;
+    }
+
+    @media (min-width: 769px) {
+      body {
+        cursor: none;
+      }
+      a, button, [role="button"], .tab, .stamp-card, .stamp-icon, .bookmark-btn {
+        cursor: none;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       4. TYPOGRAPHY & LAYOUT UTILITIES
+       ------------------------------------------------------------- */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .italic-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      padding: 8rem 0;
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Handcrafted border-radius helper */
+    .hand-drawn-border {
+      border: 3px solid var(--ink);
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    }
+
+    /* -------------------------------------------------------------
+       5. FLOATING BOOKMARK NAVIGATION
+       ------------------------------------------------------------- */
+    .nav-spine {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 65px;
+      background: var(--card-bg);
+      border-bottom: 3px solid var(--ink);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      box-shadow: 0 4px 15px rgba(44, 30, 21, 0.08);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      max-width: 900px;
+      width: 100%;
+      padding: 0 1.5rem;
+      justify-content: space-around;
+      position: relative;
+    }
+
+    .tab {
+      background: var(--parchment);
+      border: 2px solid var(--ink);
+      border-bottom: none;
+      padding: 6px 16px;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 12px 12px 0 0 / 12px 12px 0 0;
+      transform: translateY(2px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      box-shadow: 0 -2px 5px rgba(44, 30, 21, 0.05);
+    }
+
+    .tab:hover {
+      transform: translateY(-5px);
+      background: var(--ochre);
+    }
+
+    .tab.active {
+      transform: translateY(-8px);
+      background: var(--card-bg);
+      border-top: 3px solid var(--terracotta);
+      border-left: 2px solid var(--ink);
+      border-right: 2px solid var(--ink);
+      box-shadow: 0 -4px 10px rgba(44, 30, 21, 0.12);
+    }
+
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 10%;
+      width: 80%;
+      height: 4px;
+      background: var(--terracotta);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .nav-spine {
+        height: 55px;
+      }
+      .tab {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       6. SECTION DIVIDERS (Ink Strokes & Torn Edges)
+       ------------------------------------------------------------- */
+    .ink-divider {
+      width: 100%;
+      height: 60px;
+      position: relative;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: -2rem 0;
+      pointer-events: none;
+    }
+
+    .ink-divider svg {
+      width: 100%;
+      max-width: 1400px;
+      height: 100%;
+      fill: none;
+    }
+
+    .torn-edge-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      z-index: 4;
+      background: var(--parchment);
+      clip-path: polygon(0% 100%, 3% 60%, 7% 90%, 11% 55%, 15% 85%, 20% 50%, 25% 90%, 30% 65%, 34% 85%, 38% 50%, 42% 90%, 47% 60%, 52% 80%, 57% 55%, 62% 85%, 68% 50%, 72% 90%, 78% 60%, 83% 80%, 88% 55%, 93% 85%, 97% 50%, 100% 100%, 100% 0%, 0% 0%);
+    }
+
+    .torn-edge-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      z-index: 4;
+      background: var(--parchment);
+      clip-path: polygon(0% 0%, 3% 40%, 7% 10%, 11% 45%, 15% 15%, 20% 50%, 25% 10%, 30% 35%, 34% 15%, 38% 50%, 42% 10%, 47% 40%, 52% 20%, 57% 45%, 62% 15%, 68% 50%, 72% 10%, 78% 40%, 83% 20%, 88% 45%, 93% 15%, 97% 50%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* -------------------------------------------------------------
+       7. SECTION 1 — COVER (Hero)
+       ------------------------------------------------------------- */
+    #cover {
+      overflow: hidden;
+      padding-top: 10rem;
+    }
+
+    /* Watercolor dynamic interactive background */
+    .watercolor-mesh {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.28;
+      filter: blur(90px);
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at var(--wc-x1, 20%) var(--wc-y1, 20%), var(--sage) 0%, transparent 45%),
+        radial-gradient(circle at var(--wc-x2, 80%) var(--wc-y2, 40%), var(--terracotta) 0%, transparent 45%),
+        radial-gradient(circle at var(--wc-x3, 40%) var(--wc-y3, 70%), var(--gold) 0%, transparent 45%),
+        radial-gradient(circle at var(--wc-x4, 70%) var(--wc-y4, 80%), var(--mauve) 0%, transparent 45%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text {
+      position: relative;
+    }
+
+    .hero-greeting {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-tagline-container {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-style: italic;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
+      min-height: 2.8rem;
+    }
+
+    .hero-bio {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 3rem;
+      color: rgba(44, 30, 21, 0.9);
+      position: relative;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .bookmark-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--card-bg);
+      border: 2px solid var(--ink);
+      border-radius: 8px 30px 8px 30px / 30px 8px 30px 8px;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: all 0.2s ease-out;
+      position: relative;
+    }
+
+    .bookmark-btn:hover {
+      background: var(--ochre);
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .bookmark-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .bookmark-btn.primary {
+      background: var(--terracotta);
+      color: var(--parchment);
+      border-color: var(--ink);
+    }
+
+    .bookmark-btn.primary:hover {
+      background: #b55336;
+      color: var(--parchment);
+    }
+
+    /* Sketchbook floating card */
+    .hero-canvas-card {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sketchbook-card-svg {
+      width: 100%;
+      max-width: 380px;
+      filter: drop-shadow(8px 12px 18px rgba(44, 30, 21, 0.18));
+      transform: rotate(3deg);
+      animation: cardFloat 6s ease-in-out infinite;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .sketchbook-card-svg:hover {
+      transform: rotate(-1deg) scale(1.03);
+    }
+
+    /* Floating loop doodles */
+    .floating-doodle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.75;
+    }
+
+    .doodle-star {
+      width: 35px;
+      height: 35px;
+      top: -40px;
+      right: 40px;
+      animation: drift-1 8s ease-in-out infinite;
+    }
+
+    .doodle-coffee {
+      width: 160px;
+      height: 160px;
+      bottom: -60px;
+      left: -20px;
+      opacity: 0.15;
+      animation: drift-2 12s ease-in-out infinite;
+    }
+
+    .doodle-ink {
+      width: 90px;
+      height: 90px;
+      top: -30px;
+      left: 15%;
+      opacity: 0.08;
+      animation: drift-3 10s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0) rotate(3deg); }
+      50% { transform: translateY(-12px) rotate(4.5deg); }
+    }
+
+    @keyframes drift-1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(8px, -10px) rotate(15deg); }
+    }
+
+    @keyframes drift-2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      50% { transform: translate(-10px, 8px) rotate(-10deg) scale(1.05); }
+    }
+
+    @keyframes drift-3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(12px, 12px) scale(0.95); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+      .hero-bio {
+        margin: 0 auto 2.5rem;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .sketchbook-card-svg {
+        max-width: 300px;
+      }
+      .doodle-coffee {
+        bottom: -40px;
+        left: 20px;
+      }
+      .doodle-ink {
+        left: 5%;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       8. SECTION 2 — JOURNAL (About Me)
+       ------------------------------------------------------------- */
+    #journal {
+      background: radial-gradient(circle, #dfd5c2 0%, #c5bba3 100%);
+      padding: 10rem 0;
+      box-shadow: inset 0 20px 40px rgba(0,0,0,0.1), inset 0 -20px 40px rgba(0,0,0,0.1);
+    }
+
+    .journal-letter-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--parchment);
+      padding: 5rem 4rem;
+      position: relative;
+      transform: rotate(-0.5deg);
+      box-shadow: 0 15px 35px rgba(44, 30, 21, 0.25);
+      border-left: 12px solid #dfd8c8;
+    }
+
+    /* Torn edges for section/letter transitions */
+    .journal-letter-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 5 2, 10 8 T 20 4 T 30 9 T 40 3 T 50 8 T 60 4 T 70 9 T 80 3 T 90 8 T 100 10 L 100 0 L 0 0 Z' fill='%23c5bba3'/%3E%3C/svg%3E") repeat-x;
+      background-size: 40px 12px;
+    }
+
+    /* Washi tape decoration */
+    .washi-tape-left {
+      position: absolute;
+      top: -20px;
+      left: 40px;
+      width: 120px;
+      height: 35px;
+      background: rgba(112, 138, 118, 0.45);
+      transform: rotate(-12deg);
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+      border-left: 2px dashed rgba(44, 30, 21, 0.2);
+      border-right: 2px dashed rgba(44, 30, 21, 0.2);
+    }
+
+    .washi-tape-right {
+      position: absolute;
+      top: -15px;
+      right: 50px;
+      width: 110px;
+      height: 35px;
+      background: rgba(201, 167, 160, 0.5);
+      transform: rotate(8deg);
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+      border-left: 2px dashed rgba(44, 30, 21, 0.2);
+      border-right: 2px dashed rgba(44, 30, 21, 0.2);
+    }
+
+    .journal-content {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .letter-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .letter-salutation {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-signoff {
+      margin-top: 2rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .signature-svg {
+      width: 180px;
+      height: 60px;
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* Pinned Polaroid */
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 16px 16px 45px 16px;
+      box-shadow: 5px 10px 20px rgba(44, 30, 21, 0.18);
+      transform: rotate(4deg);
+      border: 1px solid #eaeaea;
+      position: relative;
+      transition: all 0.4s ease-out;
+    }
+
+    .polaroid-frame:hover {
+      transform: rotate(-1deg) translateY(-8px);
+      box-shadow: 8px 15px 25px rgba(44, 30, 21, 0.25);
+    }
+
+    .polaroid-photo-svg {
+      width: 100%;
+      aspect-ratio: 1;
+      display: block;
+      background: var(--parchment);
+      border: 1px solid rgba(44, 30, 21, 0.1);
+    }
+
+    /* Little 3D push pin */
+    .polaroid-pin {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      z-index: 5;
+      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.3));
+    }
+
+    @media (max-width: 850px) {
+      .journal-letter-container {
+        padding: 4rem 2rem;
+      }
+      .journal-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .polaroid-frame {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       9. SECTION 3 — PALETTE (Skills)
+       ------------------------------------------------------------- */
+    #palette {
+      background: #c5bba3; /* corkboard feel background */
+      padding: 8rem 0;
+      position: relative;
+    }
+
+    /* Corkboard grain */
+    #palette::before {
+      content: "";
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      opacity: 0.15;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cork'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cork)'/%3E%3C/svg%3E");
+    }
+
+    .palette-title-box {
+      text-align: center;
+      margin-bottom: 4.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .palette-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .corkboard-card {
+      background: var(--card-bg);
+      border: 3px solid var(--ink);
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      padding: 3rem 2rem 2.5rem 2rem;
+      position: relative;
+      box-shadow: 8px 12px 20px rgba(44, 30, 21, 0.22);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .corkboard-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 12px 18px 30px rgba(44, 30, 21, 0.3);
+    }
+
+    .corkboard-card::after {
+      content: "";
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 35 C 10 32, 30 32, 35 35' stroke='%232c1e15' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat;
+    }
+
+    /* Colored Push Pins */
+    .card-pin {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      filter: drop-shadow(2px 5px 3px rgba(0,0,0,0.25));
+    }
+
+    .corkboard-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .card-intro {
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: rgba(44, 30, 21, 0.8);
+      font-style: italic;
+    }
+
+    .skill-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .paper-label {
+      background: var(--parchment);
+      border: 1.5px solid var(--ink);
+      border-radius: 4px 10px 4px 12px / 12px 4px 10px 4px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      box-shadow: 1px 2px 0 var(--ink);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .paper-label:hover {
+      background: var(--ochre);
+      transform: translateY(-2px) rotate(1deg);
+      box-shadow: 2px 4px 0 var(--ink);
+    }
+
+    @media (max-width: 990px) {
+      .palette-cards {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       10. SECTION 4 — ENTRIES (Projects)
+       ------------------------------------------------------------- */
+    #entries {
+      background-color: var(--parchment);
+    }
+
+    .entries-title-box {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 3px solid var(--ink);
+      border-radius: 12px 30px 12px 30px / 30px 12px 30px 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 5px 7px 15px rgba(44, 30, 21, 0.12);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) rotate(var(--rot-dir, 1.5deg));
+      box-shadow: 10px 18px 25px rgba(44, 30, 21, 0.22);
+    }
+
+    /* Random slight card rotations on hover */
+    .project-card:nth-child(even) {
+      --rot-dir: -1.8deg;
+    }
+    .project-card:nth-child(odd) {
+      --rot-dir: 1.8deg;
+    }
+
+    .project-illustration-panel {
+      height: 180px;
+      border-bottom: 3px solid var(--ink);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .project-illustration-panel svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .project-body {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 0.95rem;
+      color: rgba(44, 30, 21, 0.85);
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .project-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .narrative-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--terracotta);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .narrative-link:hover {
+      color: var(--ink);
+      transform: translateX(4px);
+    }
+
+    .github-link-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--ink);
+      background: var(--parchment);
+      border-radius: 50%;
+      color: var(--ink);
+      text-decoration: none;
+      box-shadow: 1px 2px 0 var(--ink);
+      transition: all 0.2s ease;
+    }
+
+    .github-link-icon:hover {
+      background: var(--ochre);
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 2px 3px 0 var(--ink);
+    }
+
+    @media (max-width: 950px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       11. SECTION 5 — STAMPS (Achievements & Learning)
+       ------------------------------------------------------------- */
+    #stamps {
+      background: radial-gradient(circle, #ecdcc8 0%, #dbcbba 100%);
+      padding: 10rem 0;
+      box-shadow: inset 0 20px 40px rgba(0,0,0,0.08), inset 0 -20px 40px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .stamps-album {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: #fdfaf6;
+      border: 4px solid var(--ink);
+      box-shadow: 0 20px 45px rgba(44, 30, 21, 0.22);
+      border-radius: 8px;
+      padding: 4.5rem 3rem;
+      position: relative;
+    }
+
+    /* Passport design details */
+    .stamps-album-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      border-bottom: 2px dashed rgba(44, 30, 21, 0.2);
+      padding-bottom: 2rem;
+    }
+
+    .album-title {
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .album-subtitle {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--sage);
+      font-size: 1.1rem;
+    }
+
+    .stamps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2.5rem;
+    }
+
+    /* Organic rotates applied via nth-child transforms */
+    .stamp-container:nth-child(3n+1) { transform: rotate(-2.5deg); }
+    .stamp-container:nth-child(3n+2) { transform: rotate(1.8deg); }
+    .stamp-container:nth-child(3n+3) { transform: rotate(-1.2deg); }
+    .stamp-container:nth-child(4n) { transform: rotate(3.2deg); }
+    .stamp-container:nth-child(5n) { transform: rotate(-3.5deg); }
+
+    .stamp-container {
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stamp-container:hover {
+      transform: scale(1.05) translateY(-5px) rotate(0deg) !important;
+      z-index: 10;
+    }
+
+    /* Postage-stamp scalloped shape container */
+    .stamp-card {
+      background: var(--card-bg);
+      border: 3px dashed var(--ink);
+      border-radius: 4px;
+      padding: 1.25rem;
+      box-shadow: 3px 5px 12px rgba(44, 30, 21, 0.15);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 250px;
+      transition: all 0.3s ease;
+    }
+
+    .stamp-card:hover {
+      box-shadow: 0 10px 25px rgba(201, 101, 71, 0.25);
+      border-style: solid;
+      border-color: var(--terracotta);
+      background-color: #fbf8f3;
+    }
+
+    /* Badge Types */
+    .stamp-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .badge-achievement { background: var(--terracotta); color: white; }
+    .badge-recognition { background: var(--gold); color: var(--ink); }
+    .badge-learning { background: var(--sage); color: white; }
+    .badge-workshop { background: var(--mauve); color: var(--ink); }
+
+    /* Custom Stamp Shapes */
+    .stamp-shape-wrapper {
+      width: 75px;
+      height: 75px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
+    }
+
+    .stamp-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+
+    .stamp-issuer {
+      font-size: 0.75rem;
+      color: rgba(44, 30, 21, 0.7);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    /* Wax-seal / stamp click detailed reveal trigger */
+    .stamp-desc-fold {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--ink);
+      border-top: 1px dashed transparent;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .stamp-container:hover .stamp-desc-fold {
+      max-height: 180px;
+      border-top: 1px dashed rgba(44, 30, 21, 0.25);
+      padding-top: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .stamp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .stamp-link:hover {
+      border-color: var(--terracotta);
+      color: var(--ink);
+    }
+
+    /* Interactive Wax-seal "crack" CSS animation markup */
+    .wax-seal {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .stamp-container:hover .wax-seal {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    @media (max-width: 950px) {
+      .stamps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+      }
+      .stamps-album {
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stamps-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       12. SECTION 6 — LETTER (Contact & Socials)
+       ------------------------------------------------------------- */
+    #letter {
+      background-color: var(--parchment);
+      padding-bottom: 10rem;
+    }
+
+    .postcard-container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(44, 30, 21, 0.16);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Postcard center divider line */
+    .postcard-container::after {
+      content: "";
+      position: absolute;
+      top: 10%;
+      left: 55%;
+      width: 2px;
+      height: 80%;
+      background: rgba(44, 30, 21, 0.15);
+    }
+
+    .postcard-left {
+      padding: 4rem 3.5rem 4rem 4rem;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: rgba(44, 30, 21, 0.95);
+    }
+
+    .postcard-left p {
+      margin-bottom: 2rem;
+    }
+
+    .postcard-right {
+      padding: 4rem 4rem 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Dashed hand-drawn postage stamp SVGs */
+    .postage-stamp-wrapper {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: 90px;
+      height: 105px;
+      filter: drop-shadow(2px 4px 6px rgba(44, 30, 21, 0.15));
+    }
+
+    .postcard-address-lines {
+      margin-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .address-line {
+      border-bottom: 1.5px solid rgba(44, 30, 21, 0.25);
+      padding-bottom: 6px;
+      display: flex;
+      font-size: 1rem;
+    }
+
+    .address-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-style: italic;
+      width: 70px;
+      color: var(--terracotta);
+    }
+
+    .address-value {
+      font-family: var(--font-body);
+      color: var(--ink);
+    }
+
+    /* Social Ink Stamps */
+    .postcard-social-stamps {
+      display: flex;
+      gap: 1.8rem;
+      margin-top: 3.5rem;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .stamp-icon {
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      outline: none;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stamp-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Smudge smearing effect when clicked */
+    .stamp-icon:active {
+      transform: scale(0.9) translateY(3px);
+      filter: blur(0.3px) brightness(0.9);
+    }
+
+    @media (max-width: 800px) {
+      .postcard-container {
+        grid-template-columns: 1fr;
+      }
+      .postcard-container::after {
+        display: none;
+      }
+      .postcard-left {
+        padding: 3rem 2rem 1rem 2rem;
+      }
+      .postcard-right {
+        padding: 1rem 2rem 3rem 2rem;
+      }
+      .postage-stamp-wrapper {
+        top: -60px;
+        right: 20px;
+        scale: 0.8;
+      }
+      .postcard-address-lines {
+        margin-top: 3rem;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       13. SCROLL-TRIGGERED TRANSITIONS & FADE-INS
+       ------------------------------------------------------------- */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), 
+                  transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    .reveal-on-scroll.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Page-turn sliding transition styles */
+    .page-turn-reveal {
+      opacity: 0;
+      transform: rotateY(-10deg) translateX(30px);
+      transform-origin: left center;
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .page-turn-reveal.active {
+      opacity: 1;
+      transform: rotateY(0deg) translateX(0);
+    }
+
+    /* Footer styling */
+    .footer-sketchbook {
+      text-align: center;
+      padding: 3rem 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(44, 30, 21, 0.65);
+      border-top: 1px dashed rgba(44, 30, 21, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background SVG Paper Noise is loaded via body::before CSS to avoid blocking DOM -->
+
+  <!-- Interactive custom cursor canvas element -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- -------------------------------------------------------------
+       NAVIGATION SPINE
+       ------------------------------------------------------------- -->
+  <nav class="nav-spine" aria-label="Main Navigation">
+    <div class="nav-tabs">
+      <a href="#cover" class="tab active" data-sec="cover">Cover</a>
+      <a href="#journal" class="tab" data-sec="journal">Journal</a>
+      <a href="#palette" class="tab" data-sec="palette">Palette</a>
+      <a href="#entries" class="tab" data-sec="entries">Entries</a>
+      <a href="#stamps" class="tab" data-sec="stamps">Stamps</a>
+      <a href="#letter" class="tab" data-sec="letter">Letter</a>
+    </div>
+  </nav>
+
+  <!-- -------------------------------------------------------------
+       SECTION 1 — COVER (Hero)
+       ------------------------------------------------------------- -->
+  <section id="cover">
+    <!-- Interactive watercolor blending pigments background -->
+    <div class="watercolor-mesh" id="watercolor-mesh"></div>
+    
+    <div class="container hero-grid">
+      <div class="hero-text page-turn-reveal">
+        <!-- Floating Doodles -->
+        <!-- Star Doodle ✦ -->
+        <div class="floating-doodle doodle-star">
+          <svg viewBox="0 0 24 24" fill="var(--gold)">
+            <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+          </svg>
+        </div>
+        <!-- Coffee Ring Stain -->
+        <div class="floating-doodle doodle-coffee">
+          <svg viewBox="0 0 100 100" fill="none" stroke="var(--mauve)" stroke-width="1.5">
+            <circle cx="50" cy="50" r="42" stroke-dasharray="150 10 30 5" />
+            <circle cx="48" cy="52" r="41" stroke-width="0.75" opacity="0.5" />
+            <path d="M78 20 C 85 28, 88 40, 85 52" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <!-- Ink Splat -->
+        <div class="floating-doodle doodle-ink">
+          <svg viewBox="0 0 100 100" fill="var(--ink)">
+            <path d="M30 40 C 25 35, 15 45, 20 55 C 22 59, 32 55, 38 65 C 44 75, 52 72, 60 62 C 68 52, 78 58, 80 48 C 82 38, 70 30, 62 38 C 54 46, 45 35, 30 40 Z" />
+            <circle cx="15" cy="25" r="3" />
+            <circle cx="85" cy="65" r="4" />
+            <circle cx="50" cy="85" r="2.5" />
+          </svg>
+        </div>
+
+        <span class="hero-greeting italic-title">Hello traveler, I am</span>
+        <h1 class="hero-name">Chethan Raje Urs K</h1>
+        
+        <div class="hero-tagline-container">
+          <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+        </div>
+
+        <p class="hero-bio">
+          "I'm Chethan — a BCA student rooted in the cultural heartland of Mysuru, where the echo of Dasara drums and the quiet of old library corridors shaped how I see the world. I build digital things that feel alive — real-time chats, weather skies, travel guides, and festival experiences. Code is my craft. Curiosity is my compass. Welcome to my sketchbook."
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#journal" class="bookmark-btn primary">Open Journal →</a>
+          <a href="#letter" class="bookmark-btn">Skip to contact</a>
+        </div>
+      </div>
+
+      <div class="hero-canvas-card page-turn-reveal">
+        <!-- Floating Tilted Illustrated Sketchbook Cover -->
+        <svg class="sketchbook-card-svg" viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Heavy textured cardboard backing -->
+          <rect x="5" y="5" width="310" height="410" rx="18" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="4" />
+          <rect x="15" y="15" width="290" height="390" rx="12" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="6 4" />
+          
+          <!-- Bookmark Spine Ribbons on the left -->
+          <path d="M 5 60 L 25 60 L 25 85 L 5 85 Z" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="2" />
+          <path d="M 5 120 L 25 120 L 25 145 L 5 145 Z" fill="var(--sage)" stroke="var(--ink)" stroke-width="2" />
+          <path d="M 5 180 L 25 180 L 25 205 L 5 205 Z" fill="var(--gold)" stroke="var(--ink)" stroke-width="2" />
+
+          <!-- Card Header Info -->
+          <text x="35" y="45" font-family="var(--font-display)" font-size="12" font-weight="700" fill="var(--ink)" letter-spacing="1">FOLIO NO. 01</text>
+          <text x="220" y="45" font-family="var(--font-display)" font-size="12" font-weight="700" fill="var(--ink)" letter-spacing="1">MAY 2026</text>
+          
+          <line x1="35" y1="58" x2="285" y2="58" stroke="var(--ink)" stroke-width="2" />
+
+          <!-- Compass + Leaf Detailed Illustration -->
+          <g transform="translate(160, 205)">
+            <!-- Outer compass ring -->
+            <circle cx="0" cy="0" r="75" fill="none" stroke="var(--ink)" stroke-width="2" />
+            <circle cx="0" cy="0" r="68" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 3" />
+            
+            <!-- Compass Points -->
+            <polygon points="0,-72 6,-20 0,-12 -6,-20" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.5" />
+            <polygon points="0,72 6,20 0,12 -6,20" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.5" />
+            <polygon points="-72,0 -20,6 -12,0 -20,-6" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.5" />
+            <polygon points="72,0 20,6 12,0 20,-6" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.5" />
+            
+            <!-- Dial ticks -->
+            <line x1="0" y1="-68" x2="0" y2="-62" stroke="var(--ink)" stroke-width="1.5" />
+            <line x1="0" y1="68" x2="0" y2="62" stroke="var(--ink)" stroke-width="1.5" />
+            <line x1="-68" y1="0" x2="-62" y2="0" stroke="var(--ink)" stroke-width="1.5" />
+            <line x1="68" y1="0" x2="62" y2="0" stroke="var(--ink)" stroke-width="1.5" />
+
+            <!-- Compass labels -->
+            <text x="-4" y="-80" font-family="var(--font-display)" font-size="12" font-weight="700" fill="var(--ink)">N</text>
+
+            <!-- Leaf layered on top at 45 degree angle -->
+            <g transform="rotate(25) translate(0, -5)">
+              <!-- Leaf shape -->
+              <path d="M 0,-45 C 22,-20 22,10 0,35 C -22,10 -22,-20 0,-45 Z" fill="var(--sage)" stroke="var(--ink)" stroke-width="2" />
+              <!-- Leaf veins -->
+              <path d="M 0,-42 L 0,32" stroke="var(--ink)" stroke-width="2" />
+              <path d="M 0,-25 Q 10,-20 14,-15" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+              <path d="M 0,-20 Q -10,-15 -14,-10" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+              <path d="M 0,-5 Q 12,0 15,8" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+              <path d="M 0,0 Q -12,5 -15,13" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+              <path d="M 0,15 Q 10,20 12,25" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+            </g>
+            
+            <!-- Golden central pivot circle -->
+            <circle cx="0" cy="0" r="10" fill="var(--gold)" stroke="var(--ink)" stroke-width="2" />
+            <circle cx="0" cy="0" r="4" fill="var(--parchment)" />
+          </g>
+
+          <line x1="35" y1="345" x2="285" y2="345" stroke="var(--ink)" stroke-width="2" />
+
+          <!-- Sketchbook Title Label -->
+          <text x="160" y="375" font-family="var(--font-display)" font-size="20" font-style="italic" font-weight="700" fill="var(--ink)" text-anchor="middle">"Roots & Code"</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Section 1 & Section 2 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,25 C 200,5 400,38 600,10 C 800,-15 1000,35 1200,20 L 1200,40 L 0,40 Z" fill="#dfd5c2" />
+      <path d="M0,25 C 200,5 400,38 600,10 C 800,-15 1000,35 1200,20" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 2 — JOURNAL (About Me)
+       ------------------------------------------------------------- -->
+  <section id="journal">
+    <div class="container">
+      <div class="journal-letter-container hand-drawn-border reveal-on-scroll">
+        <!-- Virtual Tape decorations -->
+        <div class="washi-tape-left" aria-hidden="true"></div>
+        <div class="washi-tape-right" aria-hidden="true"></div>
+
+        <div class="journal-content">
+          <div class="letter-body">
+            <h2 class="letter-salutation italic-title">Dear Reader,</h2>
+            
+            <p>
+              I'm a student developer from Mysuru — a city of palaces, festivals, and quiet inspiration. I discovered coding the way most people discover a good book: slowly, then all at once.
+            </p>
+            <p>
+              I care about making things that feel human. Not just functional — but warm, considered, and alive. Whether it's a real-time chat app or a Dasara festival experience, I want every project to carry a piece of the story behind it.
+            </p>
+            <p>
+              When I'm not coding, I'm probably wandering Mysuru's old streets, sketching ideas in the margins of notebooks, or exploring what makes great design feel like home.
+            </p>
+            
+            <p class="letter-signoff">
+              With curiosity,<br>
+              Chethan ✦
+            </p>
+
+            <!-- Signature SVG path -->
+            <svg class="signature-svg" viewBox="0 0 200 70" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 20 45 C 35 25, 45 10, 52 35 C 55 45, 62 48, 68 32 C 72 25, 76 22, 80 42 C 82 48, 86 50, 92 40 C 98 28, 105 25, 110 38 C 114 45, 120 48, 128 32 C 132 20, 138 12, 142 42 C 145 52, 150 48, 155 45 M 150 20 L 165 30" fill="none" stroke="var(--terracotta)" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M 175 25 L 180 32 M 177 32 L 182 25 M 176 28 L 182 28" stroke="var(--gold)" stroke-width="2" />
+            </svg>
+          </div>
+
+          <div class="letter-photo">
+            <div class="polaroid-frame">
+              <!-- Push pin SVG on Polaroid top -->
+              <svg class="polaroid-pin" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="9" fill="#c96547" stroke="var(--ink)" stroke-width="2" />
+                <rect x="13" y="10" width="4" height="15" rx="2" fill="var(--mauve)" stroke="var(--ink)" stroke-width="1.5" />
+                <circle cx="15" cy="11" r="3" fill="#ffffff" />
+                <path d="M 12 22 L 8 28" stroke="var(--ink)" stroke-width="2" />
+              </svg>
+
+              <!-- Polaroid image as beautiful custom SVG (Starry Mysuru Palace landscape) -->
+              <svg class="polaroid-photo-svg" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sky gradient -->
+                <defs>
+                  <linearGradient id="polaroid-sky" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#1f1e33" />
+                    <stop offset="60%" stop-color="#3c3147" />
+                    <stop offset="100%" stop-color="#c96547" />
+                  </linearGradient>
+                </defs>
+                <rect width="250" height="250" fill="url(#polaroid-sky)" />
+                
+                <!-- Tiny hand-drawn stars -->
+                <circle cx="40" cy="50" r="1.5" fill="#f5eedc" />
+                <circle cx="180" cy="30" r="1" fill="#f5eedc" />
+                <circle cx="210" cy="70" r="2" fill="#e8dec9" />
+                <circle cx="120" cy="80" r="1.2" fill="#f5eedc" />
+                
+                <!-- Radiant golden glowing moon -->
+                <circle cx="200" cy="45" r="15" fill="var(--gold)" opacity="0.15" />
+                <circle cx="200" cy="45" r="8" fill="var(--parchment)" />
+
+                <!-- Mysuru Palace Silhouette Outline -->
+                <!-- Back buildings -->
+                <path d="M 10 180 L 15 160 L 25 160 L 30 180 L 50 180 L 55 150 L 70 150 L 75 180 L 100 180 L 105 135 L 125 135 L 130 180 L 160 180 L 165 155 L 180 155 L 185 180 L 240 180 L 240 250 L 10 250 Z" fill="#201a18" />
+                
+                <!-- Front glowing arches -->
+                <path d="M 0 195 C 40 185, 80 185, 120 190 C 160 195, 200 185, 250 195 L 250 250 L 0 250 Z" fill="#140f0d" />
+                
+                <!-- Palace main dome outline and pillars -->
+                <!-- Left dome -->
+                <path d="M 40 160 C 40 145, 55 145, 55 160 Z" fill="var(--gold)" stroke="var(--ink)" stroke-width="1" />
+                <rect x="44" y="160" width="8" height="20" fill="var(--ink)" />
+                <!-- Center large dome -->
+                <path d="M 105 135 C 105 110, 125 110, 125 135 Z" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.5" />
+                <rect x="111" y="135" width="12" height="45" fill="var(--ink)" />
+                <!-- Right dome -->
+                <path d="M 165 155 C 165 142, 180 142, 180 155 Z" fill="var(--gold)" stroke="var(--ink)" stroke-width="1" />
+                <rect x="169" y="155" width="8" height="25" fill="var(--ink)" />
+
+                <!-- Tiny window dots simulating palace lights -->
+                <circle cx="117" cy="148" r="1.5" fill="var(--gold)" />
+                <circle cx="113" cy="158" r="1.5" fill="var(--gold)" />
+                <circle cx="121" cy="158" r="1.5" fill="var(--gold)" />
+                <circle cx="48" cy="168" r="1.2" fill="var(--gold)" />
+                <circle cx="173" cy="168" r="1.2" fill="var(--gold)" />
+                
+                <!-- Hand-drawn title script on polaroid bottom margin -->
+                <text x="125" y="240" font-family="var(--font-display)" font-size="12" font-style="italic" fill="var(--parchment)" text-anchor="middle">Mysuru Lights, May 2026</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Section 2 & Section 3 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,15 C 300,35 600,-5 900,30 C 1050,15 1150,25 1200,10 L 1200,40 L 0,40 Z" fill="#c5bba3" />
+      <path d="M0,15 C 300,35 600,-5 900,30 C 1050,15 1150,25 1200,10" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 3 — PALETTE (Skills)
+       ------------------------------------------------------------- -->
+  <section id="palette">
+    <div class="container">
+      <div class="palette-title-box reveal-on-scroll">
+        <span class="italic-title" style="font-size: 1.3rem;">Notebook Margins</span>
+        <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">My Skills & Philosophies</h2>
+      </div>
+
+      <div class="palette-cards">
+        <!-- Card 1 — Logic & Structure -->
+        <div class="corkboard-card reveal-on-scroll">
+          <!-- Colored Pin -->
+          <svg class="card-pin" viewBox="0 0 30 30" fill="none">
+            <circle cx="15" cy="15" r="9" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="2" />
+            <rect x="13" y="10" width="4" height="15" rx="2" fill="var(--mauve)" stroke="var(--ink)" stroke-width="1.5" />
+            <circle cx="15" cy="11" r="3" fill="#ffffff" />
+            <path d="M 17 20 L 22 28" stroke="var(--ink)" stroke-width="1.5" />
+          </svg>
+          
+          <h3>Logic & Structure</h3>
+          <p class="card-intro">My building blocks for solid, efficient, and semantic application frameworks.</p>
+          
+          <div class="skill-labels">
+            <span class="paper-label">HTML5 / CSS3</span>
+            <span class="paper-label">ES6 JavaScript</span>
+            <span class="paper-label">Python</span>
+            <span class="paper-label">Node.js</span>
+            <span class="paper-label">SQL Databases</span>
+            <span class="paper-label">REST APIs</span>
+            <span class="paper-label">Git & GitHub</span>
+            <span class="paper-label">Socket.io</span>
+          </div>
+        </div>
+
+        <!-- Card 2 — Form & Feel -->
+        <div class="corkboard-card reveal-on-scroll" style="transform: rotate(1deg);">
+          <!-- Colored Pin -->
+          <svg class="card-pin" viewBox="0 0 30 30" fill="none">
+            <circle cx="15" cy="15" r="9" fill="var(--sage)" stroke="var(--ink)" stroke-width="2" />
+            <rect x="13" y="10" width="4" height="15" rx="2" fill="var(--mauve)" stroke="var(--ink)" stroke-width="1.5" />
+            <circle cx="15" cy="11" r="3" fill="#ffffff" />
+            <path d="M 12 21 L 7 27" stroke="var(--ink)" stroke-width="1.5" />
+          </svg>
+          
+          <h3>Form & Feel</h3>
+          <p class="card-intro">Methods for designing tactile layouts, dynamic canvas layers, and visual harmony.</p>
+          
+          <div class="skill-labels">
+            <span class="paper-label">UI / UX Design</span>
+            <span class="paper-label">Responsive Design</span>
+            <span class="paper-label">CSS Animations</span>
+            <span class="paper-label">SVG Illustration</span>
+            <span class="paper-label">Figma</span>
+            <span class="paper-label">Canvas API</span>
+            <span class="paper-label">Earthy Palettes</span>
+            <span class="paper-label">Fluid Transitions</span>
+          </div>
+        </div>
+
+        <!-- Card 3 — Mind & Method -->
+        <div class="corkboard-card reveal-on-scroll" style="transform: rotate(-1.5deg);">
+          <!-- Colored Pin -->
+          <svg class="card-pin" viewBox="0 0 30 30" fill="none">
+            <circle cx="15" cy="15" r="9" fill="var(--gold)" stroke="var(--ink)" stroke-width="2" />
+            <rect x="13" y="10" width="4" height="15" rx="2" fill="var(--mauve)" stroke="var(--ink)" stroke-width="1.5" />
+            <circle cx="15" cy="11" r="3" fill="#ffffff" />
+            <path d="M 14 22 L 11 29" stroke="var(--ink)" stroke-width="1.5" />
+          </svg>
+          
+          <h3>Mind & Method</h3>
+          <p class="card-intro">The human philosophies guiding how I solve problems and build stories.</p>
+          
+          <div class="skill-labels">
+            <span class="paper-label">Problem Solving</span>
+            <span class="paper-label">Story-driven Design</span>
+            <span class="paper-label">Fast Learning</span>
+            <span class="paper-label">Systems Thinking</span>
+            <span class="paper-label">Creative Building</span>
+            <span class="paper-label">Collaboration</span>
+            <span class="paper-label">Clear Documentation</span>
+            <span class="paper-label">Empathy-first UX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Section 3 & Section 4 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,20 C 300,5 600,35 900,10 C 1050,22 1150,15 1200,30 L 1200,40 L 0,40 Z" fill="var(--parchment)" />
+      <path d="M0,20 C 300,5 600,35 900,10 C 1050,22 1150,15 1200,30" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 4 — ENTRIES (Projects)
+       ------------------------------------------------------------- -->
+  <section id="entries">
+    <div class="container">
+      <div class="entries-title-box reveal-on-scroll">
+        <span class="italic-title" style="font-size: 1.3rem;">Ink & Pixels</span>
+        <h2 style="font-size: 2.6rem; margin-top: 0.5rem;">Scrapbook Project Entries</h2>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Card 1 — ShaktiNavam -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--gold) 0%, var(--royal-purple) 100%);">
+            <!-- Custom Trishul / Trident illustration -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="125" cy="75" r="45" fill="none" stroke="var(--parchment)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <!-- Radiant dots -->
+              <circle cx="125" cy="20" r="2.5" fill="var(--gold)" />
+              <circle cx="125" cy="130" r="2.5" fill="var(--gold)" />
+              <circle cx="70" cy="75" r="2.5" fill="var(--gold)" />
+              <circle cx="180" cy="75" r="2.5" fill="var(--gold)" />
+              
+              <!-- Trishul -->
+              <g transform="translate(125, 75)">
+                <!-- Center prong -->
+                <path d="M 0,-40 L 4,-15 L -4,-15 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="0" y1="-15" x2="0" y2="40" stroke="var(--parchment)" stroke-width="3.5" />
+                <line x1="0" y1="-15" x2="0" y2="40" stroke="var(--ink)" stroke-width="1.5" />
+                
+                <!-- Left/Right prongs curves -->
+                <path d="M -22,-20 C -22,-5 -5,-8 0,0 C -5,-8 -22,-5 -22,-20 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 22,-20 C 22,-5 5,-8 0,0 C 5,-8 22,-5 22,-20 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                
+                <!-- Small details -->
+                <circle cx="0" cy="-6" r="3.5" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.2" />
+                <path d="M -10,12 L 10,12" stroke="var(--gold)" stroke-width="2" />
+              </g>
+            </g>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Cultural & Frontend</span>
+            <h3 class="project-title">ShaktiNavam 🔱</h3>
+            <p class="project-desc">An immersive Dasara festival experience website celebrating the grandeur and spiritual energy of Mysuru's iconic celebration. Rich storytelling, festive animations, and deep cultural reverence.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/-ShaktiNavam" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/-ShaktiNavam" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Tourist App -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--sage) 0%, var(--mauve) 100%);">
+            <!-- Custom Compass rose + Mountain peaks -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- Mountains -->
+              <polygon points="40,110 90,50 140,110" fill="#4d5f52" opacity="0.6" />
+              <polygon points="110,110 160,35 210,110" fill="#35443a" opacity="0.8" />
+              
+              <!-- Compass Rose -->
+              <g transform="translate(75, 75) scale(0.7)">
+                <circle cx="0" cy="0" r="35" fill="none" stroke="var(--parchment)" stroke-width="1.5" />
+                <polygon points="0,-40 5,-10 0,-5 -5,-10" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.2" />
+                <polygon points="0,40 5,10 0,5 -5,10" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2" />
+                <polygon points="-40,0 -10,5 -5,0 -10,-5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2" />
+                <polygon points="40,0 10,5 5,0 10,-5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2" />
+              </g>
+
+              <!-- Trail line -->
+              <path d="M 90,80 Q 130,55 170,90 T 220,60" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4 4" />
+              <circle cx="220" cy="60" r="4" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Travel & Discovery</span>
+            <h3 class="project-title">Tourist App 🗺️</h3>
+            <p class="project-desc">A smart travel companion app helping explorers discover, navigate, and experience destinations through curated local insights, interactive maps, and place-based storytelling.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/TouristApp" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/TouristApp" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — SkyCast Weather App -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--sky-blue) 0%, var(--parchment) 100%);">
+            <!-- Custom Sun + Cloud + Raindrops -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- Golden radiating sun -->
+              <circle cx="150" cy="55" r="24" fill="var(--gold)" opacity="0.9" stroke="var(--ink)" stroke-width="1.5" />
+              <path d="M 150,20 L 150,10 M 150,90 L 150,100 M 115,55 L 105,55 M 185,55 L 195,55 M 125,30 L 118,23 M 175,80 L 182,87 M 125,80 L 118,87 M 175,30 L 182,23" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+
+              <!-- Fluffy cloud -->
+              <path d="M 75,95 C 65,95 58,85 64,74 C 61,64 70,52 82,55 C 88,44 105,44 112,54 C 122,50 134,60 128,72 C 135,76 135,90 125,95 Z" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2" />
+              
+              <!-- Raindrops -->
+              <line x1="80" y1="108" x2="76" y2="120" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="98" y1="110" x2="94" y2="122" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="116" y1="106" x2="112" y2="118" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+              
+              <!-- Wind curved lines -->
+              <path d="M 160,95 Q 175,90 190,95 T 215,90" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Real-Time Data & API</span>
+            <h3 class="project-title">SkyCast Weather App 🌤️</h3>
+            <p class="project-desc">A beautifully designed live weather application delivering atmospheric conditions, detailed forecasts, and environmental metrics through clean, organic visuals and transitions.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/skycast-weather-app" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/skycast-weather-app" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — E-Commerce Website -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--terracotta) 0%, var(--ochre) 100%);">
+            <!-- Custom Shopping basket + Leaf + Hanging price tag -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- Shopping Basket -->
+              <g transform="translate(125, 80)">
+                <!-- Basket handle -->
+                <path d="M -30,-5 C -30,-35 30,-35 30,-5" fill="none" stroke="var(--ink)" stroke-width="2.5" />
+                
+                <!-- Basket body -->
+                <polygon points="-40,0 40,0 30,35 -30,35" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2" />
+                
+                <!-- Woven grids -->
+                <line x1="-20" y1="0" x2="-15" y2="35" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="0" y1="0" x2="0" y2="35" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="20" y1="0" x2="15" y2="35" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="-35" y1="12" x2="35" y2="12" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="-32" y1="24" x2="32" y2="24" stroke="var(--ink)" stroke-width="1.5" />
+
+                <!-- Leaf detail inside basket -->
+                <path d="M 0,-15 C 8,-25 15,-12 0,-2 C -15,-12 -8,-25 0,-15" fill="var(--sage)" stroke="var(--ink)" stroke-width="1" />
+                
+                <!-- Hanging price tag -->
+                <g transform="translate(42, 5) rotate(20)">
+                  <polygon points="0,0 18,-6 28,12 10,18" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.2" />
+                  <circle cx="6" cy="6" r="1.5" fill="var(--ink)" />
+                  <line x1="0" y1="0" x2="-8" y2="-6" stroke="var(--ink)" stroke-width="1" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Full-Stack Development</span>
+            <h3 class="project-title">E-Commerce Website 🛍️</h3>
+            <p class="project-desc">A complete, responsive e-commerce platform built from scratch — featuring product catalogs, cart state management, and a seamless shopping experience with structured clean architecture.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/E-Commerce-Website" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/E-Commerce-Website" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 — Resume Builder Web App -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--parchment) 0%, var(--ink) 100%);">
+            <!-- Custom Quill pen + scroll illustration -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- Parchment Scroll -->
+              <g transform="translate(60, 45)">
+                <!-- Main paper body scroll -->
+                <path d="M 0,10 C 20,5 80,5 100,10 L 95,75 C 75,70 15,70 0,75 Z" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2" />
+                
+                <!-- Roll effects -->
+                <path d="M 0,10 C -8,10 -8,0 0,0 C 8,0 8,10 0,10" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 100,10 C 108,10 108,0 100,0 C 92,0 92,10 100,10" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 95,75 C 87,75 87,65 95,65" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 0,75 C -8,75 -8,65 0,65" fill="var(--ochre)" stroke="var(--ink)" stroke-width="1.5" />
+                
+                <!-- Writing scribble lines -->
+                <line x1="20" y1="28" x2="80" y2="28" stroke="var(--ink)" stroke-width="1" stroke-dasharray="5 3" />
+                <line x1="15" y1="42" x2="85" y2="42" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 4" />
+                <line x1="25" y1="56" x2="70" y2="56" stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 2" />
+              </g>
+
+              <!-- Quill Pen leaning over -->
+              <g transform="translate(180, 50) rotate(-35)">
+                <!-- Quill feather shape -->
+                <path d="M 0,-45 C 10,-30 8,10 0,15 C -8,10 -10,-30 0,-45 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="2" />
+                <!-- Feather shafts -->
+                <line x1="0" y1="-42" x2="0" y2="35" stroke="var(--ink)" stroke-width="2" />
+                <!-- Metal nib -->
+                <polygon points="-2,35 2,35 0,45" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.5" />
+                <!-- Ink droplets -->
+                <circle cx="10" cy="42" r="2.5" fill="var(--ink)" />
+              </g>
+            </svg>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Productivity & UI Tool</span>
+            <h3 class="project-title">Resume Builder Web App 📄</h3>
+            <p class="project-desc">A dynamic, browser-based resume builder helping users craft professional, well-formatted documents in real time — no design experience needed, just your authentic story.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/Resume-Builder-Web-App" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/Resume-Builder-Web-App" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 — Real-Time Chat App -->
+        <div class="project-card reveal-on-scroll">
+          <div class="project-illustration-panel" style="background: linear-gradient(135deg, var(--mauve) 0%, var(--sage) 100%);">
+            <!-- Custom speech bubbles + lightning bolt -->
+            <svg viewBox="0 0 250 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- Left Bubble -->
+              <g transform="translate(70, 75)">
+                <path d="M -30,-20 L 30,-20 C 35,-20 40,-15 40,-5 L 40,15 C 40,25 30,25 15,25 L -5,35 L -5,25 L -30,25 C -35,25 -40,20 -40,15 L -40,-5 C -40,-15 -35,-20 -30,-20 Z" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2" />
+                <line x1="-20" y1="2" x2="10" y2="2" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="-15" y1="12" x2="20" y2="12" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+              </g>
+
+              <!-- Right Bubble -->
+              <g transform="translate(170, 95)">
+                <path d="M -30,-20 L 30,-20 C 35,-20 40,-15 40,-5 L 40,15 C 40,25 35,25 30,25 L 5,25 L 5,35 L -10,25 C -25,25 -40,25 -40,15 L -40,-5 C -40,-15 -35,-20 -30,-20 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="2" />
+                <circle cx="-15" cy="2" r="2.5" fill="var(--ink)" />
+                <circle cx="0" cy="2" r="2.5" fill="var(--ink)" />
+                <circle cx="15" cy="2" r="2.5" fill="var(--ink)" />
+              </g>
+
+              <!-- Central Gold Lightning crackling -->
+              <polygon points="122,25 106,62 124,62 114,105 136,55 118,55" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.5" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">WebSockets & Live Comm</span>
+            <h3 class="project-title">Real-Time Chat App 💬</h3>
+            <p class="project-desc">A fast, live messaging application powered by Socket.io enabling seamless real-time communication between users — minimal, clean, and satisfyingly snappy.</p>
+            <div class="project-links">
+              <a href="https://github.com/ChethanUrs/Real-Time-Chat-Application" class="narrative-link" target="_blank" rel="noopener noreferrer">Read Narrative →</a>
+              <a href="https://github.com/ChethanUrs/Real-Time-Chat-Application" class="github-link-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Section 4 & Section 5 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,15 C 300,35 600,-10 900,25 C 1050,15 1150,30 1200,20 L 1200,40 L 0,40 Z" fill="#dbcbba" />
+      <path d="M0,15 C 300,35 600,-10 900,25 C 1050,15 1150,30 1200,20" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 5 — STAMPS (Achievements & Learning)
+       ------------------------------------------------------------- -->
+  <section id="stamps">
+    <div class="container">
+      <div class="stamps-album reveal-on-scroll">
+        <!-- Torn paper effects inside passport container -->
+        <div class="torn-edge-top" aria-hidden="true"></div>
+        <div class="torn-edge-bottom" aria-hidden="true"></div>
+
+        <div class="stamps-album-header">
+          <h2 class="album-title">Collector's Album</h2>
+          <p class="album-subtitle">Achievements, Workshops, & Certified Milestones</p>
+        </div>
+
+        <div class="stamps-grid">
+          <!-- Stamp 1: JoFest CodeClash Winner -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-achievement">🏆 Achievement</span>
+              
+              <!-- Custom Hexagonal Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <polygon points="40,5 75,25 75,65 40,75 5,65 5,25" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="2" />
+                  <polygon points="40,9 71,27 71,63 40,71 9,63 9,27" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="4 3" />
+                  <!-- Gold Crown icon inside -->
+                  <path d="M 25,50 L 55,50 L 55,38 L 48,44 L 40,32 L 32,44 L 25,38 Z" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="40" cy="50" r="3" fill="var(--parchment)" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">CodeClash Winner</h3>
+              <p class="stamp-issuer">JoFest 2026, Amrita</p>
+
+              <div class="stamp-desc-fold">
+                Won the algorithmic problem-solving & speed-coding contest at Amrita's annual tech fest under high-pressure constraints.
+                <a href="https://www.linkedin.com/posts/chethan-raje-urs-k-005b42305_codeclash-jofest2026-amritavishwavidyapeetham-ugcPost-7430264746442027009-284Q/" class="stamp-link" target="_blank" rel="noopener noreferrer">View Post →</a>
+              </div>
+              
+              <!-- Wax Seal indicator -->
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#a83c20" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 12 12 Q 15 8 18 12 T 15 22" stroke="#ffffff" stroke-width="1.5" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 2: ShaktiNavam Recognition -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-recognition">🌐 Recognition</span>
+              
+              <!-- Circular Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="35" fill="var(--gold)" stroke="var(--ink)" stroke-width="2" />
+                  <circle cx="40" cy="40" r="30" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="4 3" />
+                  <!-- Cultural mandala design -->
+                  <circle cx="40" cy="40" r="16" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+                  <path d="M 40,8 L 40,72 M 8,40 L 72,40 M 17,17 L 63,63 M 17,63 L 63,17" stroke="var(--ink)" stroke-width="0.8" opacity="0.6" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">ShaktiNavam</h3>
+              <p class="stamp-issuer">Faculty Recognition</p>
+
+              <div class="stamp-desc-fold">
+                Received academic commendation for blending cultural Dasara storytelling with robust responsive frontend engineering.
+                <a href="https://www.linkedin.com/posts/activity-7392937759503634433-1rSz" class="stamp-link" target="_blank" rel="noopener noreferrer">View Post →</a>
+              </div>
+              
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#c9a84c" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 10 12 L 20 18 M 10 18 L 20 12" stroke="#ffffff" stroke-width="1.5" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 3: Python Fundamentals -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-learning">📘 Online Learning</span>
+              
+              <!-- Rectangular Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <rect x="5" y="10" width="70" height="60" rx="4" fill="var(--sage)" stroke="var(--ink)" stroke-width="2" />
+                  <rect x="9" y="14" width="62" height="52" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" />
+                  <!-- Snake icon (Python) inside -->
+                  <path d="M 28,45 C 28,30 52,30 52,45 C 52,55 35,52 35,62" stroke="var(--parchment)" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <path d="M 28,45 C 28,30 52,30 52,45 C 52,55 35,52 35,62" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round" fill="none" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Python & Scripting</h3>
+              <p class="stamp-issuer">Infosys Springboard ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Completed structured programming syllabus covering automation, arrays, dictionary schemas, and logic.
+                <a href="https://www.linkedin.com/posts/activity-7383505664381362176-YvFj" class="stamp-link" target="_blank" rel="noopener noreferrer">View Certificate →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#526e58" stroke="var(--ink)" stroke-width="1.5" />
+                <circle cx="15" cy="15" r="7" fill="none" stroke="#ffffff" stroke-width="1" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 4: Database Management Systems -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-learning">📘 Online Learning</span>
+              
+              <!-- Square Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <rect x="10" y="10" width="60" height="60" rx="6" fill="var(--ochre)" stroke="var(--ink)" stroke-width="2" />
+                  <rect x="14" y="14" width="52" height="52" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3" />
+                  <!-- Database cylinder icon inside -->
+                  <ellipse cx="40" cy="28" rx="14" ry="5" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                  <path d="M 26,28 L 26,42 C 26,47 54,47 54,42 L 54,28" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+                  <path d="M 26,42 L 26,56 C 26,61 54,61 54,56 L 54,42" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Database Systems</h3>
+              <p class="stamp-issuer">NPTEL Syllabus ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Comprehensive certification covering relational normalization, schema designs, constraints, index mapping, and raw SQL.
+                <a href="https://www.linkedin.com/posts/activity-7383033416595804160-W_Hc" class="stamp-link" target="_blank" rel="noopener noreferrer">View Certificate →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#caa072" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 11 11 L 19 19 M 11 19 L 19 11" stroke="#ffffff" stroke-width="1.5" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 5: Front-End Web Development -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-learning">📘 Online Learning</span>
+              
+              <!-- Circular Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="35" fill="var(--sky-blue)" stroke="var(--ink)" stroke-width="2" />
+                  <!-- Code bracket icon inside -->
+                  <path d="M 26,30 L 14,40 L 26,50 M 54,30 L 66,40 L 54,50" fill="none" stroke="var(--parchment)" stroke-width="3.5" stroke-linecap="round" />
+                  <path d="M 26,30 L 14,40 L 26,50 M 54,30 L 66,40 L 54,50" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" />
+                  <line x1="45" y1="26" x2="35" y2="54" stroke="var(--ink)" stroke-width="1.8" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Front-End Dev</h3>
+              <p class="stamp-issuer">Coursera Academy ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Validated expertise in modern fluid layouts, document object hierarchies, responsive grid nodes, and accessible CSS.
+                <a href="https://www.linkedin.com/posts/activity-7382864381367435264-AnG3" class="stamp-link" target="_blank" rel="noopener noreferrer">View Certificate →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#588599" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 9,15 Q 15,9 21,15 T 15,21" stroke="#ffffff" stroke-width="1.2" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 6: Web Development Bootcamp -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-workshop">🛠️ Workshop</span>
+              
+              <!-- Hexagonal Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <polygon points="40,5 75,25 75,65 40,75 5,65 5,25" fill="#58483f" stroke="var(--ink)" stroke-width="2" />
+                  <!-- Hammer/wrench tools crossed -->
+                  <path d="M 25,55 L 55,25" stroke="var(--parchment)" stroke-width="5" stroke-linecap="round" />
+                  <path d="M 25,55 L 55,25" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M 25,25 L 55,55" stroke="var(--parchment)" stroke-width="5" stroke-linecap="round" />
+                  <path d="M 25,25 L 55,55" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Web Dev Bootcamp</h3>
+              <p class="stamp-issuer">Amrita ACM Chapter ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Participated in an intensive hands-on web development bootcamp covering layout architectures, responsive assets, and version mapping.
+                <a href="https://www.linkedin.com/posts/activity-7357429479817785345-NKa9" class="stamp-link" target="_blank" rel="noopener noreferrer">View Post →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#382c25" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 12 12 Q 15 15 18 12" stroke="#ffffff" stroke-width="1.5" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 7: UI/UX Design Thinking -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-workshop">🛠️ Workshop</span>
+              
+              <!-- Rectangular Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <rect x="5" y="10" width="70" height="60" rx="4" fill="var(--mauve)" stroke="var(--ink)" stroke-width="2" />
+                  <!-- Glowing Lightbulb icon inside -->
+                  <circle cx="40" cy="35" r="14" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                  <rect x="36" y="49" width="8" height="6" fill="var(--gold)" stroke="var(--ink)" stroke-width="1" />
+                  <line x1="40" y1="15" x2="40" y2="10" stroke="var(--ink)" stroke-width="1" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">UI/UX Thinking</h3>
+              <p class="stamp-issuer">Amrita IEEE Branch ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Interactive masterclass centered on user research, canvas frame mapping, interactive wireframes, and human-empathy UX.
+                <a href="https://www.linkedin.com/posts/activity-7353249101548863488-veVq" class="stamp-link" target="_blank" rel="noopener noreferrer">View Post →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#aa7268" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 12 12 C 15 18 18 18 18 12" stroke="#ffffff" stroke-width="1.2" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 8: Cloud & AWS Essentials -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-workshop">🛠️ Workshop</span>
+              
+              <!-- Square Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <rect x="10" y="10" width="60" height="60" rx="6" fill="var(--gold)" stroke="var(--ink)" stroke-width="2" />
+                  <!-- Cloud outline with key inside -->
+                  <path d="M 28,45 C 24,45 20,40 22,35 C 20,28 26,20 34,22 C 38,15 50,15 54,24 C 60,24 64,30 60,38 C 62,45 56,45 52,45 Z" fill="var(--parchment)" stroke="var(--ink)" stroke-width="1.5" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Cloud Essentials</h3>
+              <p class="stamp-issuer">GDSC Amrita ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Hands-on deployment lab exploring virtual servers, secure networks, database systems, and object storage maps.
+                <a href="https://www.linkedin.com/posts/activity-7335905541526802433-GI9t" class="stamp-link" target="_blank" rel="noopener noreferrer">View Post →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#997d2e" stroke="var(--ink)" stroke-width="1.5" />
+                <circle cx="15" cy="15" r="4" fill="#ffffff" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Stamp 9: Data Structures in Python -->
+          <div class="stamp-container">
+            <div class="stamp-card">
+              <span class="stamp-badge badge-learning">📘 Online Learning</span>
+              
+              <!-- Circular Stamp SVG -->
+              <div class="stamp-shape-wrapper">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="35" fill="var(--card-bg)" stroke="var(--ink)" stroke-width="2" />
+                  <!-- Tree structure nodes -->
+                  <circle cx="40" cy="22" r="5" fill="var(--terracotta)" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="26" cy="45" r="5" fill="var(--sage)" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="54" cy="45" r="5" fill="var(--sage)" stroke="var(--ink)" stroke-width="1.5" />
+                  <line x1="37" y1="26" x2="29" y2="41" stroke="var(--ink)" stroke-width="1.5" />
+                  <line x1="43" y1="26" x2="51" y2="41" stroke="var(--ink)" stroke-width="1.5" />
+                </svg>
+              </div>
+
+              <h3 class="stamp-title">Data Structures</h3>
+              <p class="stamp-issuer">Infosys Springboard ⚠️</p>
+
+              <div class="stamp-desc-fold">
+                Rigorous training on complex algorithm complexity, stack memory maps, queues, tree traversing, and linked nodes.
+                <a href="https://www.linkedin.com/posts/activity-7331712074215002112-6vYO" class="stamp-link" target="_blank" rel="noopener noreferrer">View Certificate →</a>
+              </div>
+
+              <svg class="wax-seal" viewBox="0 0 30 30" fill="none">
+                <circle cx="15" cy="15" r="12" fill="#584e42" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 10 15 L 20 15" stroke="#ffffff" stroke-width="1.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline SVG Ink divider brush stroke between Section 5 & Section 6 -->
+  <div class="ink-divider">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path d="M0,25 C 200,5 400,38 600,10 C 800,-15 1000,35 1200,20 L 1200,40 L 0,40 Z" fill="var(--parchment)" />
+      <path d="M0,25 C 200,5 400,38 600,10 C 800,-15 1000,35 1200,20" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </svg>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       SECTION 6 — LETTER (Contact & Socials)
+       ------------------------------------------------------------- -->
+  <section id="letter">
+    <div class="container">
+      <div class="postcard-container hand-drawn-border reveal-on-scroll">
+        
+        <!-- Postcard Left Side: Handwritten Invitation -->
+        <div class="postcard-left">
+          <p>
+            "Have an interesting idea, want to collaborate on something meaningful, or just want to share a good warm cup of Mysuru filter coffee? Write to me — I'd love to hear your story."
+          </p>
+          <p>
+            Whether it's building something together, talking about design, code, or the culture of this beautiful city — my digital letterbox is always open to curious minds.
+          </p>
+        </div>
+
+        <!-- Postcard Right Side: Address Panel & Postage Stamp -->
+        <div class="postcard-right">
+          <!-- Postage Stamp in Top-Right -->
+          <div class="postage-stamp-wrapper">
+            <svg viewBox="0 0 90 105" xmlns="http://www.w3.org/2000/svg">
+              <!-- Scalloped stamp back border -->
+              <rect x="3" y="3" width="84" height="99" fill="var(--parchment)" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4" />
+              <!-- Inner borders -->
+              <rect x="10" y="10" width="70" height="85" fill="none" stroke="var(--ink)" stroke-width="1.2" />
+              <rect x="13" y="13" width="64" height="79" fill="none" stroke="var(--ink)" stroke-width="0.5" />
+              
+              <!-- Sage Leaf illustration -->
+              <g transform="translate(45, 52)">
+                <path d="M 0,-25 C 10,-10 12,8 0,22 C -12,8 -10,-10 0,-25 Z" fill="var(--sage)" stroke="var(--ink)" stroke-width="1.5" />
+                <line x1="0" y1="-22" x2="0" y2="18" stroke="var(--ink)" stroke-width="1.5" />
+                <path d="M 0,-12 Q 6,-10 8,-6 M 0,-4 Q -6,-2 -8,2" fill="none" stroke="var(--ink)" stroke-width="1" />
+              </g>
+
+              <!-- Stamp textual branding -->
+              <text x="45" y="24" font-family="var(--font-display)" font-size="8" font-weight="700" fill="var(--terracotta)" text-anchor="middle" letter-spacing="1">POSTAGE</text>
+              <text x="45" y="90" font-family="var(--font-display)" font-size="9" font-weight="700" fill="var(--ink)" text-anchor="middle">5 RS</text>
+            </svg>
+          </div>
+
+          <!-- Address Lines -->
+          <div class="postcard-address-lines">
+            <div class="address-line">
+              <span class="address-label">To</span>
+              <span class="address-value">Chethan Raje Urs K</span>
+            </div>
+            <div class="address-line">
+              <span class="address-label">Mail</span>
+              <span class="address-value">chethanurs@gmail.com</span> <!-- Updated placeholder -->
+            </div>
+            <div class="address-line">
+              <span class="address-label">Loc</span>
+              <span class="address-value">Mysuru, Karnataka, India</span>
+            </div>
+          </div>
+
+          <!-- Ink Stamp Social Buttons -->
+          <div class="postcard-social-stamps">
+            <!-- GitHub Ink Stamp -->
+            <a href="https://github.com/ChethanUrs" class="stamp-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <!-- Distressed round stamp backing -->
+                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--terracotta)" stroke-width="2.5" stroke-dasharray="140 3 15 2 40 5" />
+                <circle cx="30" cy="30" r="23" fill="none" stroke="var(--terracotta)" stroke-width="1" stroke-dasharray="5 3" />
+                <!-- Icon inside -->
+                <path d="M30 18c-6.6 0-12 5.4-12 12c0 5.3 3.4 9.8 8.2 11.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4c-.5-1.4-1.3-1.8-1.3-1.8c-1.1-.7.1-.7.1-.7c1.2.1 1.8 1.2 1.8 1.2c1.1 1.8 2.8 1.3 3.5 1c.1-.8.4-1.3.8-1.6c-2.7-.3-5.5-1.3-5.5-5.9c0-1.3.5-2.4 1.2-3.2c-.1-.3-.5-1.5.1-3.2c0 0 1-.3 3.3 1.2c1-.3 2-.4 3-.4c1 0 2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2c.7 1.7.2 2.9.1 3.2c.8.8 1.2 1.9 1.2 3.2c0 4.6-2.8 5.6-5.5 5.9c.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6c4.8-1.6 8.2-6.1 8.2-11.4c0-6.6-5.4-12-12-12z" fill="var(--terracotta)" />
+              </svg>
+            </a>
+
+            <!-- LinkedIn Ink Stamp -->
+            <a href="https://www.linkedin.com/in/chethan-raje-urs-k-005b42305" class="stamp-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--sage)" stroke-width="2.5" stroke-dasharray="100 4 30 2 20 6" />
+                <circle cx="30" cy="30" r="23" fill="none" stroke="var(--sage)" stroke-width="1" stroke-dasharray="4 4" />
+                <!-- Icon inside -->
+                <path d="M21 24h5v15h-5z M23.5 16c-1.7 0-3 1.3-3 3s1.3 3 3 3s3-1.3 3-3s-1.3-3-3-3z M29 24h4.8v2.1h.1c.7-1.3 2.3-2.6 4.7-2.6c5.1 0 6 3.3 6 7.7V39h-5v-7.9c0-1.9 0-4.3-2.6-4.3c-2.6 0-3 2.1-3 4.2V39h-5z" fill="var(--sage)" />
+              </svg>
+            </a>
+
+            <!-- Email Ink Stamp -->
+            <a href="mailto:chethanurs@gmail.com" class="stamp-icon" aria-label="Send Email">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="120 5 15 3 35 4" />
+                <circle cx="30" cy="30" r="23" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="6 3" />
+                <!-- Icon inside -->
+                <path d="M18 21h24c1.7 0 3 1.3 3 3v12c0 1.7-1.3 3-3 3H18c-1.7 0-3-1.3-3-3V24c0-1.7 1.3-3 3-3z M18 24.6V36h24V24.6l-12 7.5z M30 29.4l11.4-7.1H18.6z" fill="var(--ink)" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -------------------------------------------------------------
+       FOOTER SKETCHBOOK
+       ------------------------------------------------------------- -->
+  <footer class="footer-sketchbook">
+    <div class="container">
+      <p>Hand-bound & Crafted with curiosity — Chethan Raje Urs K © 2026</p>
+      <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Mysuru Campus, Amrita Vishwa Vidyapeetham</p>
+    </div>
+  </footer>
+
+  <!-- -------------------------------------------------------------
+       JAVASCRIPT INTERACTIONS
+       ------------------------------------------------------------- -->
+  <script>
+    /* =============================================================
+       1. TYPEWRITER EFFECT ON HERO TAGLINE
+       ============================================================= */
+    const taglineText = "Crafting digital stories from the heart of Mysuru.";
+    const typewriterSpan = document.getElementById("typewriter-text");
+    let typeIndex = 0;
+
+    function runTypewriter() {
+      if (typeIndex < taglineText.length) {
+        typewriterSpan.textContent += taglineText.charAt(typeIndex);
+        typeIndex++;
+        // Add slightly variable mechanical delays to mimic a real typewriter
+        const delay = 40 + Math.random() * 80;
+        setTimeout(runTypewriter, delay);
+      }
+    }
+
+    // Run when DOM loads
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(runTypewriter, 1000);
+    });
+
+    /* =============================================================
+       2. MOUSE-REACTIVE WATERCOLOR GRADIENT MESH
+       ============================================================= */
+    const meshElement = document.getElementById("watercolor-mesh");
+    // Target position percentages
+    let targetX = 50;
+    let targetY = 50;
+    // Current interpolated position percentages
+    let curX = 50;
+    let curY = 50;
+    const lerpDamp = 0.08; // Spring damping factor
+
+    window.addEventListener("mousemove", (e) => {
+      // Calculate mouse pointer ratio over cover/hero element dimensions
+      const rect = document.getElementById("cover").getBoundingClientRect();
+      const relativeX = e.clientX - rect.left;
+      const relativeY = e.clientY - rect.top;
+      
+      targetX = (relativeX / rect.width) * 100;
+      targetY = (relativeY / rect.height) * 100;
+    });
+
+    function animateWatercolorMesh() {
+      // Interpolate positions for smooth lagging effect
+      curX += (targetX - curX) * lerpDamp;
+      curY += (targetY - curY) * lerpDamp;
+
+      // Update radial gradient source custom variables
+      meshElement.style.setProperty("--wc-x1", `${curX * 0.4 + 10}%`);
+      meshElement.style.setProperty("--wc-y1", `${curY * 0.4 + 15}%`);
+      
+      meshElement.style.setProperty("--wc-x2", `${90 - curX * 0.3}%`);
+      meshElement.style.setProperty("--wc-y2", `${40 + curY * 0.2}%`);
+      
+      meshElement.style.setProperty("--wc-x3", `${30 + curX * 0.35}%`);
+      meshElement.style.setProperty("--wc-y3", `${80 - curY * 0.3}%`);
+      
+      meshElement.style.setProperty("--wc-x4", `${curX * 0.3 + 55}%`);
+      meshElement.style.setProperty("--wc-y4", `${95 - curY * 0.4}%`);
+
+      requestAnimationFrame(animateWatercolorMesh);
+    }
+    requestAnimationFrame(animateWatercolorMesh);
+
+    /* =============================================================
+       3. CUSTOM LEAF CURSOR PHYSICS TRAIL
+       ============================================================= */
+    const canvas = document.getElementById("cursor-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Handle high-res canvas scaling
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Mouse positions
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let isMouseActive = false;
+
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      isMouseActive = true;
+    });
+
+    // Physics variables for floating leaf
+    let leafX = mouseX;
+    let leafY = mouseY;
+    let vx = 0;
+    let vy = 0;
+    let leafAngle = 0;
+
+    const stiffness = 0.05; // Spring force
+    const damping = 0.72;   // Damping inertia
+    const gravity = 0.05;   // Small falling drift
+    
+    // Array to hold floating sparkle/leaf-vein particle paths
+    const particles = [];
+
+    class DriftParticle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        // Float downward and slightly to the left/right randomly
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = Math.random() * 0.8 + 0.3;
+        this.size = Math.random() * 4 + 2;
+        this.alpha = 1;
+        this.color = Math.random() > 0.4 ? "#708a76" : "#c9a84c"; // Sage or Gold
+        this.rotSpeed = (Math.random() - 0.5) * 0.05;
+        this.rot = Math.random() * Math.PI;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rot += this.rotSpeed;
+        this.alpha -= 0.015; // Slow fade out
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rot);
+        
+        // Draw tiny almond-shaped baby leaves
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size);
+        ctx.quadraticCurveTo(this.size * 0.6, 0, 0, this.size);
+        ctx.quadraticCurveTo(-this.size * 0.6, 0, 0, -this.size);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function animateCursorPhysics() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (isMouseActive && window.innerWidth > 768) {
+        // Physics update for main leaf cursor
+        let ax = (mouseX - leafX) * stiffness;
+        let ay = (mouseY - leafY) * stiffness;
+        
+        vx += ax;
+        vy += ay;
+        vx *= damping;
+        vy *= damping;
+        
+        leafX += vx;
+        leafY += vy + gravity; // Leaf drifts slightly downwards due to weight
+
+        // Determine leaf angle based on movement speed vector
+        const targetAngle = Math.atan2(vy, vx) + Math.PI / 4;
+        leafAngle += (targetAngle - leafAngle) * 0.12;
+
+        // Draw leaf trail particles on speed thresholds
+        const speed = Math.sqrt(vx * vx + vy * vy);
+        if (speed > 2 && Math.random() > 0.4) {
+          // Emit a particle from the tail of the leaf
+          particles.push(new DriftParticle(leafX - Math.cos(leafAngle) * 8, leafY - Math.sin(leafAngle) * 8));
+        }
+
+        // Draw all trailing dust particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.update();
+          if (p.alpha <= 0) {
+            particles.splice(i, 1);
+          } else {
+            p.draw();
+          }
+        }
+
+        // Draw primary handcrafted green leaf cursor
+        ctx.save();
+        ctx.translate(leafX, leafY);
+        ctx.rotate(leafAngle);
+        
+        // Shadow offset for floating realism
+        ctx.shadowColor = "rgba(44, 30, 21, 0.15)";
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetX = 3;
+        ctx.shadowOffsetY = 4;
+
+        // Leaf border/stroke
+        ctx.fillStyle = "#708a76"; // Sage green base
+        ctx.strokeStyle = "#2c1e15"; // Deep ink outline
+        ctx.lineWidth = 1.8;
+
+        ctx.beginPath();
+        // Standard leaf geometry path
+        ctx.moveTo(0, -12);
+        ctx.bezierCurveTo(7, -6, 7, 6, 0, 12);
+        ctx.bezierCurveTo(-7, 6, -7, -6, 0, -12);
+        ctx.fill();
+        ctx.stroke();
+
+        // Main center vein line
+        ctx.beginPath();
+        ctx.moveTo(0, -10);
+        ctx.lineTo(0, 14);
+        ctx.strokeStyle = "#2c1e15";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      requestAnimationFrame(animateCursorPhysics);
+    }
+    animateCursorPhysics();
+
+    /* =============================================================
+       4. SCROLL-TRIGGERED INTERSECTION OBSERVER ANIMATIONS
+       ============================================================= */
+    const revealElements = document.querySelectorAll(".reveal-on-scroll, .page-turn-reveal");
+    
+    const observerOptions = {
+      root: null,
+      threshold: 0.1, // Trigger when 10% visible
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          // Optionally unobserve after transition reveals
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => {
+      scrollObserver.observe(el);
+    });
+
+    /* =============================================================
+       5. SMOOTH SCROLL & NAVIGATION TABS TRACKING
+       ============================================================= */
+    const navTabs = document.querySelectorAll(".tab");
+    const sections = document.querySelectorAll("section");
+
+    // Smooth scroll handling with adjustments for header clearance height
+    navTabs.forEach(tab => {
+      tab.addEventListener("click", (e) => {
+        e.preventDefault();
+        const secId = tab.getAttribute("href");
+        const targetSection = document.querySelector(secId);
+        
+        if (targetSection) {
+          const spineOffset = 60;
+          const targetTop = targetSection.getBoundingClientRect().top + window.pageYOffset - spineOffset;
+          
+          window.scrollTo({
+            top: targetTop,
+            behavior: "smooth"
+          });
+        }
+      });
+    });
+
+    // Tracking active scroll sections to update tab selection states
+    window.addEventListener("scroll", () => {
+      let currentSectionId = "";
+      const spineOffset = 100;
+      
+      sections.forEach(sec => {
+        const secTop = sec.offsetTop - spineOffset;
+        const secHeight = sec.offsetHeight;
+        if (window.pageYOffset >= secTop && window.pageYOffset < secTop + secHeight) {
+          currentSectionId = sec.getAttribute("id");
+        }
+      });
+
+      if (currentSectionId) {
+        navTabs.forEach(tab => {
+          tab.classList.remove("active");
+          if (tab.getAttribute("data-sec") === currentSectionId) {
+            tab.classList.add("active");
+          }
+        });
+      }
+    });
+
+    /* =============================================================
+       6. POSTCARD INK STAMPS CLICK INTERACTION EFFECT
+       ============================================================= */
+    const socialStamps = document.querySelectorAll(".postcard-social-stamps .stamp-icon");
+    
+    socialStamps.forEach(stamp => {
+      stamp.addEventListener("click", () => {
+        // Add tiny physics vibration triggers
+        stamp.style.transform = "scale(0.85) translateY(4px) rotate(-3deg)";
+        setTimeout(() => {
+          stamp.style.transform = "";
+        }, 220);
+      });
+    });
+  </script>
+
+</body>
+</html>
